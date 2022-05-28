@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import logo from '../../AgUSDBannerT2.png';
+import logo from '../../AgUSD.png';
 
 
 const CustomButton = styled(Button)(({ _theme }) => ({
@@ -25,8 +25,11 @@ function Navbar() {
     <div className="navbar" style={{
       paddingTop: '12px'
     }}>
-      <img src={logo} height="75" width="400" align="top"/>
-      <Stack direction="row" spacing={24}>
+      <img src={logo} height="50" width="50" align="left" alt="AgUSD"/>
+      <Stack direction="row" spacing={24} style={{
+        paddingLeft: '5vh',
+        paddingTop: '0.9vh'
+      }}>
         <CustomButton variant="text">
           <Link to="/" style={{
             textDecoration: 'none',

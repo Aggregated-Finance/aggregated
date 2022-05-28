@@ -1,7 +1,7 @@
 import '../../App.css';
 import React, { Component } from 'react';
 import { styled } from '@mui/material/styles';
-import { Card } from 'web3uikit';
+import { Card, Modal, Input } from 'web3uikit';
 import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 
@@ -69,18 +69,236 @@ const CustomButtonMim = styled(Button)(({ theme }) => ({
 class Mint extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      tvl: 0,
+      showModal: {
+        dai: false,
+        usdc: false,
+        fusdt: false,
+        frax: false,
+        mim: false
+      },
+      holdings: {
+        dai: 0,
+        usdc: 0,
+        fusdt: 0,
+        frax: 0,
+        mim: 0
+      }
+    }
+    this.setModalDai = this.setModalDai.bind(this);
+    this.setModalUsdc = this.setModalUsdc.bind(this);
+    this.setModalFusdt = this.setModalFusdt.bind(this);
+    this.setModalFrax = this.setModalFrax.bind(this);
+    this.setModalMim = this.setModalMim.bind(this);
+  }
+
+  setModalDai() {
+    this.setState({
+      showModal: {
+        dai: !(this.state.showModal.dai),
+        usdc: false,
+        fusdt: false,
+        frax: false,
+        mim: false
+      }
+    });
+  }
+
+  setModalUsdc() {
+    this.setState({
+      showModal: {
+        dai: false,
+        usdc: !(this.state.showModal.usdc),
+        fusdt: false,
+        frax: false,
+        mim: false
+      }
+    });
+  }
+
+  setModalFusdt() {
+    this.setState({
+      showModal: {
+        dai: false,
+        usdc: false,
+        fusdt: !(this.state.showModal.fusdt),
+        frax: false,
+        mim: false
+      }
+    });
+  }
+
+  setModalFrax() {
+    this.setState({
+      showModal: {
+        dai: false,
+        usdc: false,
+        fusdt: false,
+        frax: !(this.state.showModal.frax),
+        mim: false
+      }
+    });
+  }
+
+  setModalMim() {
+    this.setState({
+      showModal: {
+        dai: false,
+        usdc: false,
+        fusdt: false,
+        frax: false,
+        mim: !(this.state.showModal.mim)
+      }
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header" style={{
+        <header className="gluon" style={{
           paddingTop: '0vh'
         }}>
           <h1>The Gluon Minter</h1>
+          <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
+          <Modal
+            cancelText="Discard Changes"
+            id="regular"
+            width="50vw"
+            height="30vh"
+            okText="Save Changes"
+            isVisible={this.state.showModal.dai}
+            onCancel={this.setModalDai}
+            onCloseButtonPressed={this.setModalDai}
+            onOk={function noRefCheck(){}}
+            title={<h3 style={{
+              fontFamily: 'Montserrat'
+            }}>Mint AgUSD With DAI</h3>}
+            style={{
+              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+            }}
+          >
+            <Input
+              alabel="Amount"
+              width="100%"
+              style={{
+                fontFamily: 'Montserrat'
+              }}
+              placeholder={`DAI Balance: ${this.state.holdings.dai}`}
+            />
+            <br />
+          </Modal>
+          <Modal
+            cancelText="Discard Changes"
+            id="regular"
+            width="50vw"
+            height="30vh"
+            okText="Save Changes"
+            isVisible={this.state.showModal.usdc}
+            onCancel={this.setModalUsdc}
+            onCloseButtonPressed={this.setModalUsdc}
+            onOk={function noRefCheck(){}}
+            title={<h3 style={{
+              fontFamily: 'Montserrat'
+            }}>Mint AgUSD With USDC</h3>}
+            style={{
+              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+            }}
+          >
+            <Input
+              alabel="Amount"
+              width="100%"
+              style={{
+                fontFamily: 'Montserrat'
+              }}
+              placeholder={`USDC Balance: ${this.state.holdings.usdc}`}
+            />
+            <br />
+          </Modal>
+          <Modal
+            cancelText="Discard Changes"
+            id="regular"
+            width="50vw"
+            height="30vh"
+            okText="Save Changes"
+            isVisible={this.state.showModal.fusdt}
+            onCancel={this.setModalFusdt}
+            onCloseButtonPressed={this.setModalFusdt}
+            onOk={function noRefCheck(){}}
+            title={<h3 style={{
+              fontFamily: 'Montserrat'
+            }}>Mint AgUSD With fUSDT</h3>}
+            style={{
+              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+            }}
+          >
+            <Input
+              alabel="Amount"
+              width="100%"
+              style={{
+                fontFamily: 'Montserrat'
+              }}
+              placeholder={`fUSDT Balance: ${this.state.holdings.fusdt}`}
+            />
+            <br />
+          </Modal>
+          <Modal
+            cancelText="Discard Changes"
+            id="regular"
+            width="50vw"
+            height="30vh"
+            okText="Save Changes"
+            isVisible={this.state.showModal.frax}
+            onCancel={this.setModalFrax}
+            onCloseButtonPressed={this.setModalFrax}
+            onOk={function noRefCheck(){}}
+            title={<h3 style={{
+              fontFamily: 'Montserrat'
+            }}>Mint AgUSD With FRAX</h3>}
+            style={{
+              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+            }}
+          >
+            <Input
+              alabel="Amount"
+              width="100%"
+              style={{
+                fontFamily: 'Montserrat'
+              }}
+              placeholder={`FRAX Balance: ${this.state.holdings.frax}`}
+            />
+            <br />
+          </Modal>
+          <Modal
+            cancelText="Discard Changes"
+            id="regular"
+            width="50vw"
+            height="30vh"
+            okText="Save Changes"
+            isVisible={this.state.showModal.mim}
+            onCancel={this.setModalMim}
+            onCloseButtonPressed={this.setModalMim}
+            onOk={function noRefCheck(){}}
+            title={<h3 style={{
+              fontFamily: 'Montserrat'
+            }}>Mint AgUSD With MIM</h3>}
+            style={{
+              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+            }}
+          >
+            <Input
+              alabel="Amount"
+              width="100%"
+              style={{
+                fontFamily: 'Montserrat'
+              }}
+              placeholder={`MIM Balance: ${this.state.holdings.mim}`}
+            />
+            <br />
+          </Modal>
           <Stack direction="row" spacing={2}>
             <Card
-              onClick={function noRefCheck(){}}
+              onClick={this.setModalDai}
               setIsSelected={function noRefCheck(){}}
               style={{
                 backgroundImage: "linear-gradient(90deg, #FFD23F, #FFB236, #FF922D)",
@@ -98,7 +316,7 @@ class Mint extends Component {
             </Card>
             {/**/}
             <Card
-              onClick={function noRefCheck(){}}
+              onClick={this.setModalUsdc}
               setIsSelected={function noRefCheck(){}}
               style={{
                 backgroundImage: "linear-gradient(90deg, #44355B, #3B2E4D, #31263E)",
@@ -116,7 +334,7 @@ class Mint extends Component {
             </Card>
             {/**/}
             <Card
-              onClick={function noRefCheck(){}}
+              onClick={this.setModalFusdt}
               setIsSelected={function noRefCheck(){}}
               style={{
                 backgroundImage: "linear-gradient(90deg, #40F99B, #3BD787, #39C67D)",
@@ -135,7 +353,7 @@ class Mint extends Component {
             </Card>
             {/**/}
             <Card
-              onClick={function noRefCheck(){}}
+              onClick={this.setModalFrax}
               setIsSelected={function noRefCheck(){}}
               style={{
                 backgroundImage: "linear-gradient(90deg, #2D1B24, #321821, #36151E)",
@@ -153,7 +371,7 @@ class Mint extends Component {
             </Card>
             {/**/}
             <Card
-              onClick={function noRefCheck(){}}
+              onClick={this.setModalMim}
               setIsSelected={function noRefCheck(){}}
               style={{
                 backgroundImage: "linear-gradient(90deg, #F7B05B, #F4B565, #F1BA6E)",
