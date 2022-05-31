@@ -25,7 +25,9 @@ function Navbar() {
     <div className="navbar" style={{
       paddingTop: '12px'
     }}>
-      <img src={logo} height="50" width="50" align="left" alt="AgUSD"/>
+      <Link to="/"><img src={logo} height="50" width="50" align="left" style={{
+        marginRight: "5vw"
+      }} alt="AgUSD"/></Link>
       <Stack direction="row" spacing={24} style={{
         paddingLeft: '5vh',
         paddingTop: '0.9vh'
