@@ -42,5 +42,6 @@
       "last 1 safari version"
     ]
   },
-  "throwIfNamespace": "false"
+  "throwIfNamespace": "false",
+  "cracoConfig": "src/craco.config.js"
 }
