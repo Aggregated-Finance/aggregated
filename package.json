@@ -48,6 +48,9 @@
   "resolutions": {
     "webpack": "4.44.2"
   },
+  "browser": {
+    "crypto": false
+  }
   "throwIfNamespace": "false",
   "cracoConfig": "craco.config.js"
 }
