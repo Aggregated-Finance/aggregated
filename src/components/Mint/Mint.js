@@ -239,7 +239,6 @@ class Mint extends Component {
 
   handleChange(event) {
     this.setState({ input: parseFloat(formatInput(event.target.value)) });
-    console.log(this.state);
   }
 
   async approveDai() {
@@ -463,7 +462,6 @@ class Mint extends Component {
       holdings: holdings,
       contract: agUsd
     });
-    console.log(this.state);
   }
 
   disconnectWallet() {

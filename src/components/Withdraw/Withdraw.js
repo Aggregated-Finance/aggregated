@@ -213,7 +213,6 @@ class Withdraw extends Component {
 
   handleChange(event) {
     this.setState({ input: parseFloat(formatInput(event.target.value)) });
-    console.log(this.state);
   }
 
   async connectWallet() {
