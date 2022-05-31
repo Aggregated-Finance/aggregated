@@ -49,9 +49,6 @@
   "resolutions": {
     "webpack": "4.44.2"
   },
-  "resolve": {
-    "crypto": require.resolve("crypto"),
-  },
   "throwIfNamespace": "false",
   "cracoConfig": "craco.config.js"
 }
