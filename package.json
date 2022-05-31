@@ -50,7 +50,7 @@
   },
   "browser": {
     "crypto": false
-  }
+  },
   "throwIfNamespace": "false",
   "cracoConfig": "craco.config.js"
 }
