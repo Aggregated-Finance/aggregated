@@ -3,6 +3,9 @@ const path = require('path');
 module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
+    resolve: {
+      "crypto": false,
+    }
     resolve.fallback: {
       "crypto": require.resolve("crypto-browserify"),
       "fs": false,
@@ -10,7 +13,7 @@ module.exports = {
       "net": false,
       "path": false,
       "zlib": false,
-      "http": false,
+      "http": require.resolve("stream-http"),
       "https": false,
       "stream": false,
     }
