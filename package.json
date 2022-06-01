@@ -18,7 +18,8 @@
     "stream-http": "^3.2.0",
     "toastify-js": "^1.11.2",
     "web-vitals": "^2.1.4",
-    "web3uikit": "^0.1.153"
+    "web3uikit": "^0.1.153",
+    "webpack": "^5.72.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,7 +45,6 @@
       "last 1 safari version"
     ]
   },
-  
   "throwIfNamespace": "false",
   "cracoConfig": "craco.config.js"
 }
