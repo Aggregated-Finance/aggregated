@@ -12,3 +12,9 @@ module.exports = {
     }
   }
 };
+/*"devDependencies": {
+  "webpack": "4.44.2"
+},
+"resolutions": {
+  "webpack": "4.44.2"
+},*/
