@@ -3,7 +3,7 @@ import constants from '../../constants.js';
 import React, { Component, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Card, Modal, Input } from 'web3uikit';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 import Toastify from 'toastify-js'
@@ -232,7 +232,7 @@ class Mint extends Component {
         usdc: false,
         fusdt: false,
         frax: false,
-        mim: !(this.state.showModal.mim)
+        mim: !(this.state.showModal.mim),
       }
     });
   }
