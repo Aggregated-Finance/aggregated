@@ -12,11 +12,11 @@ import "../../toastify.css"
 import { ethers, Contract } from 'ethers';
 import agabi from '../../AgUSDAbi.js';
 
-import dai from './Images/dai.svg';
-import usdc from './Images/usdc.svg';
-import fusdt from './Images/fusdt.svg';
-import frax from './Images/frax.svg';
-import mim from './Images/mim.png';
+import dai from '../Mint/Images/dai.svg';
+import usdc from '../Mint/Images/usdc.svg';
+import fusdt from '../Mint/Images/fusdt.svg';
+import frax from '../Mint/Images/frax.svg';
+import mim from '../Mint/Images/mim.png';
 
 const CustomButtonDai = styled(Button)(({ theme }) => ({
   borderColor: '#ffffff',
