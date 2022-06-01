@@ -23,7 +23,7 @@ const CustomButtonDai = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
-  '&:hover': { 
+  '&:hover': {
     borderColor: '#ffffff',
     backgroundColor: '#FFB236',
     textDecoration: 'none',
