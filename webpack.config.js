@@ -7,13 +7,13 @@ module.exports = {
     //  "crypto": false,
     //},
     resolve.fallback: {
-      "crypto": require.resolve("crypto-browserify"),
+      "crypto": false,//require.resolve("crypto-browserify"),
       "fs": false,
       "tls": false,
       "net": false,
       "path": false,
       "zlib": false,
-      "http": require.resolve("stream-http"),
+      "http": false,//require.resolve("stream-http"),
       "https": false,
       "stream": false,
     }
