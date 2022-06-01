@@ -257,7 +257,7 @@ class Withdraw extends Component {
 
   async burnDai() {
     this.state.contract.functions.AgUSDToDAI(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -272,7 +272,7 @@ class Withdraw extends Component {
 
   async burnUsdc() {
     this.state.contract.functions.AgUSDToUSDC(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -287,7 +287,7 @@ class Withdraw extends Component {
 
   async burnFusdt() {
     this.state.contract.functions.AgUSDToFUSDT(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -302,7 +302,7 @@ class Withdraw extends Component {
 
   async burnFrax() {
     this.state.contract.functions.AgUSDToFRAX(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -317,7 +317,7 @@ class Withdraw extends Component {
 
   async burnMim() {
     this.state.contract.functions.AgUSDToMIM(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,

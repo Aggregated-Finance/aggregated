@@ -6,8 +6,8 @@ import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import Toastify from 'toastify-js'
-import "../../toastify.css"
+import Toastify from 'toastify-js';
+import "../../toastify.css";
 
 import { ethers, Contract } from 'ethers';
 import abi from './erc20abi.js';
@@ -243,7 +243,7 @@ class Mint extends Component {
 
   async approveDai() {
     this.state.dai.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -258,7 +258,7 @@ class Mint extends Component {
 
   async mintDai() {
     this.state.contract.functions.mintFromDAI(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+      
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -273,7 +273,7 @@ class Mint extends Component {
 
   async approveUsdc() {
     this.state.usdc.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -288,7 +288,7 @@ class Mint extends Component {
 
   async mintUsdc() {
     this.state.contract.functions.mintFromUSDC(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -303,7 +303,7 @@ class Mint extends Component {
 
   async approveFusdt() {
     this.state.fusdt.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -318,7 +318,7 @@ class Mint extends Component {
 
   async mintFusdt() {
     this.state.contract.functions.mintFromFUSDT(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -333,7 +333,7 @@ class Mint extends Component {
 
   async approveFrax() {
     this.state.frax.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -348,7 +348,7 @@ class Mint extends Component {
 
   async mintFrax() {
     this.state.contract.functions.mintFromFRAX(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -363,7 +363,7 @@ class Mint extends Component {
 
   async approveMim() {
     this.state.mim.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -378,7 +378,7 @@ class Mint extends Component {
 
   async mintMim() {
     this.state.contract.functions.mintFromMIM(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      console.error(e);
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
