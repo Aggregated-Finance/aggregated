@@ -12,13 +12,13 @@ import "../../toastify.css"
 import { ethers, Contract } from 'ethers';
 import agabi from '../../AgUSDAbi.js';
 
-import dai from '../Mint/Images/dai.svg';
-import usdc from '../Mint/Images/usdc.svg';
-import fusdt from '../Mint/Images/fusdt.svg';
-import frax from '../Mint/Images/frax.svg';
-import mim from '../Mint/Images/mim.png';
+import dai from './Images/dai.svg';
+import usdc from './Images/usdc.svg';
+import fusdt from './Images/fusdt.svg';
+import frax from './Images/frax.svg';
+import mim from './Images/mim.png';
 
-const CustomButtonDai = styled(Button)(({ theme }) => ({
+const CustomButtonDai = styled(Button)(({ _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -29,7 +29,7 @@ const CustomButtonDai = styled(Button)(({ theme }) => ({
   }
 }));
 
-const CustomButtonUsdc = styled(Button)(({ theme }) => ({
+const CustomButtonUsdc = styled(Button)(({ _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -40,7 +40,7 @@ const CustomButtonUsdc = styled(Button)(({ theme }) => ({
   }
 }));
 
-const CustomButtonFusdt = styled(Button)(({ theme }) => ({
+const CustomButtonFusdt = styled(Button)(({ _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -51,7 +51,7 @@ const CustomButtonFusdt = styled(Button)(({ theme }) => ({
   }
 }));
 
-const CustomButtonFrax = styled(Button)(({ theme }) => ({
+const CustomButtonFrax = styled(Button)(({ _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -62,7 +62,7 @@ const CustomButtonFrax = styled(Button)(({ theme }) => ({
   }
 }));
 
-const CustomButtonMim = styled(Button)(({ theme }) => ({
+const CustomButtonMim = styled(Button)(({ _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -73,7 +73,7 @@ const CustomButtonMim = styled(Button)(({ theme }) => ({
   }
 }));
 
-const CustomButton = styled(Button)(({ theme }) => ({
+const CustomButton = styled(Button)(({ _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
