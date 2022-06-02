@@ -1,7 +1,7 @@
 import logo from '../../AgUSD.svg';
 import '../../App.css';
 
-function Info() {
+function Withdraw() {
   return (
     <div className="App">
       <header className="App-header">
@@ -16,4 +16,4 @@ function Info() {
   );
 }
 
-export default Info;
+export default Withdraw;

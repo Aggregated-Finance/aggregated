@@ -1,0 +1,33 @@
+/*
+Credit for this is at https://github.com/Atanda1/react-navbar/blob/master/src/components/Navbar.css, but beautified
+*/
+
+.navbar {
+     display:inline-block;
+     height: 7.5vh;
+}
+ .navbar li{
+     list-style: none;
+     display:inline-block;
+     margin:auto;
+}
+ .navbar li a{
+     text-decoration: none;
+     color:rgb(29, 25, 231);
+     font-size: 18px;
+     padding:8px 20px;
+}
+ .navbar li a:hover{
+     color:rgb(151, 7, 247);
+     border: darkmagenta;
+     border-radius: 2px;
+     font-size: 20px;
+}
+ .navbar li a:active{
+     background-color: deepskyblue;
+     border-radius: 5px;
+}
+
+Link {
+  text-decoration: none;
+}
