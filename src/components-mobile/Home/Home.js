@@ -16,7 +16,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
   }
 }));
 
-function HomeM() {
+function Home() {
   return (
     <div className="App">
       <header className="App-header">
@@ -56,4 +56,4 @@ function HomeM() {
   );
 }
 
-export default HomeM;
+export default Home;
