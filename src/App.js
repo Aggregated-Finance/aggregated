@@ -14,7 +14,7 @@ import Navbar from "./components/Navbar/Navbar.js";
 import HomeM from "./components-mobile/Home/Home.js";
 import MintM from "./components-mobile/Mint/Mint.js";
 import WithdrawM from "./components-mobile/Withdraw/Withdraw.js";
-import InfoM from "./components-mobile/Info/Info.js"; 
+import InfoM from "./components-mobile/Info/Info.js";
 
 import { ethers } from 'ethers';
 
@@ -48,20 +48,23 @@ function WInfo() {
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <BrowserView>
+      <BrowserView>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/mint" element={<WMint />} />
           <Route path="/withdraw" element={<WWithdraw />} />
           <Route path="/info" element={<WInfo />} />
-        </BrowserView>
-        <MobileView>
-          <Route path="/" element={<Home />} />
-          <Route path="/mint" element={<WMint />} />
-          <Route path="/withdraw" element={<WWithdraw />} />
-          <Route path="/info" element={<WInfo />} />
-        </MobileView>
-      </Routes>
+        </Routes>
+      </BrowserView>
+
+      <MobileView>
+        <Routes>
+          <Route path="/" element={<HomeM />} />
+          <Route path="/mint" element={<MintM />} />
+          <Route path="/withdraw" element={<WithdrawM />} />
+          <Route path="/info" element={<InfoM />} />
+        </Routes>
+      </MobileView>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import '../../App.css';
+import '../../App-mobile.css';
 import constants from '../../constants.js';
 import React, { Component, useState } from 'react';
 import { styled } from '@mui/material/styles';
@@ -11,6 +11,8 @@ import "../../toastify.css"
 
 import { ethers, Contract } from 'ethers';
 import agabi from '../../AgUSDAbi.js';
+
+import { Link } from 'react-router-dom';
 
 import dai from './Images/dai.svg';
 import usdc from './Images/usdc.svg';
@@ -362,6 +364,50 @@ class Withdraw extends Component {
             <h1>The Gluon Minter</h1>
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
+
+            {/*
+              * This should act as a navbar for now
+              */}
+            <Stack direction="column" padding={2}>
+              <Link to="/" style={{
+                textDecoration: 'none',
+                color: '#ffffff'
+              }}>
+                <CustomButton
+                  variant="outlined"
+                  style={{
+                    textDecoration: 'none',
+                    color: '#ffffff'
+                  }}
+                >home</CustomButton>
+              </Link>
+              <br />
+              <Link to="/withdraw" style={{
+                textDecoration: 'none',
+                color: '#ffffff'
+              }}>
+                <CustomButton
+                  variant="outlined"
+                  style={{
+                    textDecoration: 'none',
+                    color: '#ffffff'
+                  }}
+                >Withdraw</CustomButton>
+              </Link>
+              <br />
+              <Link to="/info" style={{
+                textDecoration: 'none',
+                color: '#ffffff'
+              }}>
+                <CustomButton
+                  variant="outlined"
+                  style={{
+                    textDecoration: 'none',
+                    color: '#ffffff'
+                  }}
+                >Info</CustomButton>
+              </Link>
+            </Stack>
           <h1>The Boson Burner</h1>
           <CustomButton
             variant="outlined"
@@ -588,7 +634,7 @@ class Withdraw extends Component {
           </Stack>
             <br />
           </Modal>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="column" spacing={2}>
             <Card
               onClick={this.setModalDai}
               setIsSelected={function noRefCheck(){}}

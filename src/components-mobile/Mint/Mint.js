@@ -1,4 +1,4 @@
-import '../../App.css';
+import '../../App-mobile.css';
 import constants from '../../constants.js';
 import React, { Component, useState } from 'react';
 import { styled } from '@mui/material/styles';
@@ -6,8 +6,12 @@ import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+import { Link } from 'react-router-dom';
+
 import Toastify from 'toastify-js';
 import "../../toastify.css";
+
+import { truncateAddress } from '../../helpers/truncateAddress.js';
 
 import { ethers, Contract } from 'ethers';
 import abi from './erc20abi.js';
@@ -142,7 +146,8 @@ class Mint extends Component {
       fusdt: new Contract("0x049d68029688eAbF473097a2fC38ef61633A3C7A",abi,prov),
       frax: new Contract("0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",abi,prov),
       mim: new Contract("0x82f0B8B456c1A451378467398982d4834b6829c1",abi,prov),
-      input: 0
+      input: 0,
+      sidebar: false,
     }
     this.setModalDai = this.setModalDai.bind(this);
     this.setModalUsdc = this.setModalUsdc.bind(this);
@@ -258,7 +263,7 @@ class Mint extends Component {
 
   async mintDai() {
     this.state.contract.functions.mintFromDAI(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -521,7 +526,52 @@ class Mint extends Component {
             <h1>The Gluon Minter</h1>
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
-          <h1>The Gluon Minter</h1>
+
+          {/*
+            * This should act as a navbar for now
+            */}
+          <Stack direction="column" padding={2}>
+            <Link to="/" style={{
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>
+              <CustomButton
+                variant="outlined"
+                style={{
+                  textDecoration: 'none',
+                  color: '#ffffff'
+                }}
+              >home</CustomButton>
+            </Link>
+            <br />
+            <Link to="/withdraw" style={{
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>
+              <CustomButton
+                variant="outlined"
+                style={{
+                  textDecoration: 'none',
+                  color: '#ffffff'
+                }}
+              >Withdraw</CustomButton>
+            </Link>
+            <br />
+            <Link to="/info" style={{
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>
+              <CustomButton
+                variant="outlined"
+                style={{
+                  textDecoration: 'none',
+                  color: '#ffffff'
+                }}
+              >Info</CustomButton>
+            </Link>
+          </Stack>
+          <h1>The Gluon MinterM</h1>
+          {this.state.account ?
           <CustomButton
             variant="outlined"
             style={{
@@ -529,13 +579,21 @@ class Mint extends Component {
               color: '#ffffff'
             }}
             onClick={this.connectWallet}
-          >{this.state.account || "Connect Wallet"}</CustomButton>
+          >{truncateAddress(this.state.account)}</CustomButton> :
+          <CustomButton
+            variant="outlined"
+            style={{
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}
+            onClick={this.connectWallet}
+          >Connect Wallet</CustomButton>}
 
           <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Mint AgUSD!"
             isVisible={this.state.showModal.dai}
@@ -577,7 +635,7 @@ class Mint extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Mint AgUSD!"
             isVisible={this.state.showModal.usdc}
@@ -619,7 +677,7 @@ class Mint extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Mint AgUSD!"
             isVisible={this.state.showModal.fusdt}
@@ -661,7 +719,7 @@ class Mint extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Mint AgUSD!"
             isVisible={this.state.showModal.frax}
@@ -703,7 +761,7 @@ class Mint extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Mint AgUSD!"
             isVisible={this.state.showModal.mim}
@@ -742,7 +800,7 @@ class Mint extends Component {
           </Stack>
             <br />
           </Modal>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="column" spacing={2}>
             <Card
               onClick={this.setModalDai}
               setIsSelected={function noRefCheck(){}}

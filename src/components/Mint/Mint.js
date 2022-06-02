@@ -258,7 +258,7 @@ class Mint extends Component {
 
   async mintDai() {
     this.state.contract.functions.mintFromDAI(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      
+
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
