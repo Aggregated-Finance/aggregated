@@ -511,16 +511,7 @@ class Mint extends Component {
             <h1>The Gluon Minter</h1>
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
-          <h1>The Gluon Minter</h1>
-          <CustomButton
-            variant="outlined"
-            style={{
-              textDecoration: 'none',
-              color: '#ffffff'
-            }}
-            onClick={this.connectWallet}
-          >{this.state.account || "Connect Wallet"}</CustomButton>
-
+          <h1>The Gluon Minter</h1>  
           <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
           <Modal
             cancelText="Approve"

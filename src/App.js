@@ -8,7 +8,7 @@ import Mint from "./components/Mint/Mint.js";
 import Withdraw from "./components/Withdraw/Withdraw.js";
 import Info from "./components/Info/Info.js";
 
-import Navbar from "./components/Navbar/Navbar.js";
+import NavbarHeader from "./components/Navbar/Navbar.js";
 
 import HomeM from "./components-mobile/Home/Home.js";
 import MintM from "./components-mobile/Mint/Mint.js";
@@ -18,7 +18,7 @@ import InfoM from "./components-mobile/Info/Info.js";
 function WMint() {
   return (
     <>
-      <Navbar />
+      <NavbarHeader />
       <Mint />
     </>
   );
@@ -27,7 +27,7 @@ function WMint() {
 function WWithdraw() {
   return (
     <>
-      <Navbar />
+      <NavbarHeader />
       <Withdraw />
     </>
   );
@@ -36,7 +36,7 @@ function WWithdraw() {
 function WInfo() {
   return (
     <>
-      <Navbar />
+      <NavbarHeader />
       <Info />
     </>
   );
