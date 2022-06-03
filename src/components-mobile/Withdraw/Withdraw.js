@@ -374,7 +374,7 @@ class Withdraw extends Component {
                 >home</CustomButton>
               </Link>
               <br />
-              <Link to="/withdraw" style={{
+              <Link to="/mint" style={{
                 textDecoration: 'none',
                 color: '#ffffff'
               }}>
@@ -384,7 +384,7 @@ class Withdraw extends Component {
                     textDecoration: 'none',
                     color: '#ffffff'
                   }}
-                >Withdraw</CustomButton>
+                >Mint</CustomButton>
               </Link>
               <br />
               <Link to="/info" style={{
