@@ -1,6 +1,6 @@
 import '../../App.css';
 import constants from '../../constants.js';
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { styled } from '@mui/material/styles';
 import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
@@ -106,16 +106,6 @@ function formatInput(thing) {
   }
   return thing;
 }
-
-function toDecimals(t, amt) {
-  let t2 = t.toString().split('');
-  let ze = "";
-  for (var i = 0; i < amt; i++) {
-    ze = ze + t2[i];
-  }
-  return ze;
-}
-
 
 class Mint extends Component {
 
@@ -407,7 +397,7 @@ class Mint extends Component {
       }]
     });
     const provider = new ethers.providers.Web3Provider(window.ethereum, 250);
-    const { chainId } = await provider.getNetwork();
+    //const { chainId } = await provider.getNetwork();
     let signer = provider.getSigner();
     let accounts = await provider.send("eth_requestAccounts", []);
     let account = accounts[0];

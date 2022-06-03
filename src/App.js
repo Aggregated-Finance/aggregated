@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import './App.css';
 
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 import Home from "./components/Home/Home.js";
 import Mint from "./components/Mint/Mint.js";
@@ -10,13 +10,10 @@ import Info from "./components/Info/Info.js";
 
 import Navbar from "./components/Navbar/Navbar.js";
 
-
 import HomeM from "./components-mobile/Home/Home.js";
 import MintM from "./components-mobile/Mint/Mint.js";
 import WithdrawM from "./components-mobile/Withdraw/Withdraw.js";
 import InfoM from "./components-mobile/Info/Info.js";
-
-import { ethers } from 'ethers';
 
 function WMint() {
   return (

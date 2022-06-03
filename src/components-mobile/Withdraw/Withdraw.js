@@ -1,6 +1,6 @@
 import '../../App-mobile.css';
 import constants from '../../constants.js';
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { styled } from '@mui/material/styles';
 import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
@@ -11,6 +11,8 @@ import "../../toastify.css"
 
 import { ethers, Contract } from 'ethers';
 import agabi from '../../AgUSDAbi.js';
+
+import { truncateAddress } from '../../helpers/truncateAddress.js';
 
 import { Link } from 'react-router-dom';
 
@@ -86,7 +88,7 @@ const CustomButton = styled(Button)(({ _theme }) => ({
   }
 }));
 
-const prov = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
+//const prov = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
 
 var forb = [
   '~',
@@ -107,16 +109,6 @@ function formatInput(thing) {
   }
   return thing;
 }
-
-function toDecimals(t, amt) {
-  let t2 = t.toString().split('');
-  let ze = "";
-  for (var i = 0; i < amt; i++) {
-    ze = ze + t2[i];
-  }
-  return ze;
-}
-
 
 class Withdraw extends Component {
 
@@ -233,7 +225,7 @@ class Withdraw extends Component {
       }]
     });
     const provider = new ethers.providers.Web3Provider(window.ethereum, 250);
-    const { chainId } = await provider.getNetwork();
+    //const { chainId } = await provider.getNetwork();
     let signer = provider.getSigner();
     let accounts = await provider.send("eth_requestAccounts", []);
     let account = accounts[0];
@@ -409,6 +401,7 @@ class Withdraw extends Component {
               </Link>
             </Stack>
           <h1>The Boson Burner</h1>
+          {this.state.account ?
           <CustomButton
             variant="outlined"
             style={{
@@ -416,13 +409,21 @@ class Withdraw extends Component {
               color: '#ffffff'
             }}
             onClick={this.connectWallet}
-          >{this.state.account || "Connect Wallet"}</CustomButton>
+          >{truncateAddress(this.state.account)}</CustomButton> :
+          <CustomButton
+            variant="outlined"
+            style={{
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}
+            onClick={this.connectWallet}
+          >Connect Wallet</CustomButton>}
 
           <h2>AgUSD in wallet: {this.state.holding || "None"}</h2>
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Burn AgUSD!"
             isCancelDisabled={true}
@@ -465,7 +466,7 @@ class Withdraw extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Burn AgUSD!"
             isCancelDisabled={true}
@@ -508,7 +509,7 @@ class Withdraw extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Burn AgUSD!"
             isCancelDisabled={true}
@@ -551,7 +552,7 @@ class Withdraw extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Burn AgUSD!"
             isCancelDisabled={true}
@@ -594,7 +595,7 @@ class Withdraw extends Component {
           <Modal
             cancelText="Approve"
             id="regular"
-            width="50vw"
+            width="75wh"
             height="30vh"
             okText="Burn AgUSD!"
             isCancelDisabled={true}

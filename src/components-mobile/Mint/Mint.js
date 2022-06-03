@@ -1,6 +1,6 @@
 import '../../App-mobile.css';
 import constants from '../../constants.js';
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { styled } from '@mui/material/styles';
 import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
@@ -39,7 +39,7 @@ const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
   borderRadius: '30px',
   textDecoration: 'none',
   '&:hover': {
-    borderColor: '#ffffff',
+    borderColor: '#ffffff', 
     backgroundColor: '#3B2E4D',
     textDecoration: 'none',
   }
@@ -110,16 +110,6 @@ function formatInput(thing) {
   }
   return thing;
 }
-
-function toDecimals(t, amt) {
-  let t2 = t.toString().split('');
-  let ze = "";
-  for (var i = 0; i < amt; i++) {
-    ze = ze + t2[i];
-  }
-  return ze;
-}
-
 
 class Mint extends Component {
 
@@ -412,7 +402,7 @@ class Mint extends Component {
       }]
     });
     const provider = new ethers.providers.Web3Provider(window.ethereum, 250);
-    const { chainId } = await provider.getNetwork();
+    //const { chainId } = await provider.getNetwork();
     let signer = provider.getSigner();
     let accounts = await provider.send("eth_requestAccounts", []);
     let account = accounts[0];
@@ -570,7 +560,7 @@ class Mint extends Component {
               >Info</CustomButton>
             </Link>
           </Stack>
-          <h1>The Gluon MinterM</h1>
+          <h1>The Gluon Minter</h1>
           {this.state.account ?
           <CustomButton
             variant="outlined"
