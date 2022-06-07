@@ -27,5 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # pkg
-
 package-lock.json*
+
+# env
+*.env*
