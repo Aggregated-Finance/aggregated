@@ -12,6 +12,10 @@ import "../../toastify.css"
 import { ethers, Contract } from 'ethers';
 import agabi from '../../AgUSDAbi.js';
 
+import { truncateAddress } from '../../helpers/truncateAddress.js';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import dai from './Images/dai.svg';
 import usdc from './Images/usdc.svg';
 import fusdt from './Images/fusdt.svg';
@@ -129,6 +133,7 @@ class Withdraw extends Component {
     this.setModalMim = this.setModalMim.bind(this);
 
     this.connectWallet = this.connectWallet.bind(this);
+    this.disconnectWallet = this.disconnectWallet.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
 
@@ -354,14 +359,34 @@ class Withdraw extends Component {
             */}
           <h1>The Boson Burner</h1>
           <CustomButton
-            variant="outlined"
+            variant='contained'
             style={{
               textDecoration: 'none',
-              color: '#ffffff'
+              color: '#ffffff',
+              backgroundColor: '#e69965',
+              borderColor: 'black',
+              size: 'small'
             }}
-            onClick={this.connectWallet}
-          >{this.state.account || "Connect Wallet"}</CustomButton>
-
+          >{this.state.account ?
+            <CustomButton
+              variant="text"
+              style={{
+                textDecoration: 'none',
+                color: '#ffffff',
+                backgroundColor: '#e69965'
+              }}
+              onClick={this.disconnectWallet}
+            >{truncateAddress(this.state.account)} <DeleteIcon /></CustomButton> :
+            <CustomButton
+              variant="text"
+              style={{
+                textDecoration: 'none',
+                color: '#ffffff',
+                borderColor: 'black'
+              }}
+              onClick={this.connectWallet}
+            >Connect Wallet</CustomButton>}
+          </CustomButton>
           <h2>AgUSD in wallet: {this.state.holding || "None"}</h2>
           <Modal
             cancelText="Approve"

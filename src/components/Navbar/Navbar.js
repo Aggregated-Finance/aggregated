@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../App.css';
-import "./Nav.css";
+import './Nav.css';
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import logo from '../../AgUSD.png';
+import { ethers, Contract } from 'ethers';
+import abi from './erc20abi.js';
 
 
 const CustomButton = styled(Button)(({ _theme }) => ({
@@ -19,46 +21,60 @@ const CustomButton = styled(Button)(({ _theme }) => ({
   }
 }));
 
+const prov = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
 
-function Navbar() {
-  return (
-    <div className="navbar" style={{
-      paddingTop: '12px'
-    }}>
-      <Link to="/"><img src={logo} height="50" width="50" align="left" style={{
-        marginRight: "5vw"
-      }} alt="AgUSD"/></Link>
-      <Stack direction="row" spacing={24} style={{
-        paddingLeft: '5vh',
-        paddingTop: '0.9vh'
+class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { /**/ }
+  }
+
+  render() {
+
+    return (
+      <div className="navbarheader" style={{
+        padding: '14px 27px',
+        display: 'static'
       }}>
-        <CustomButton variant="text">
-          <Link to="/" style={{
-            textDecoration: 'none',
-            color: '#ffffff'
-          }}>Home</Link>
-        </CustomButton>
-        <CustomButton variant="text">
-          <Link to="/mint" style={{
-            textDecoration: 'none',
-            color: '#ffffff'
-          }}>Mint</Link>
-        </CustomButton>
-        <CustomButton variant="text">
-          <Link to="/withdraw" style={{
-            textDecoration: 'none',
-            color: '#ffffff'
-          }}>Withdraw</Link>
-        </CustomButton>
-        <CustomButton variant="text">
-          <Link to="/info" style={{
-            textDecoration: 'none',
-            color: '#ffffff'
-          }}>About</Link>
-        </CustomButton>
-      </Stack>
-    </div>
-  );
+        <Stack direction="row" spacing={23} style={{
+              fontWeight: "bold",
+              textDecoration: 'none',
+              color: '#ffffff'
+        }}>
+          <Link to="/"><img src={logo} height="50" width="50" style={{
+          }} alt="AgUSD" /></Link>
+          <CustomButton variant="text">
+            <Link to="/" style={{
+              fontWeight: "bold",
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>Home</Link>
+          </CustomButton>
+          <CustomButton variant="text">
+            <Link to="/mint" style={{
+              fontWeight: "bold",
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>Mint</Link>
+          </CustomButton>
+          <CustomButton variant="text">
+            <Link to="/withdraw" style={{
+              fontWeight: "bold",
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>Withdraw</Link>
+          </CustomButton>
+          <CustomButton variant="text">
+            <Link to="/info" style={{
+              fontWeight: "bold",
+              textDecoration: 'none',
+              color: '#ffffff'
+            }}>About</Link>
+          </CustomButton>
+        </Stack>
+      </div>
+    )
+  }
 }
 
 export default Navbar;

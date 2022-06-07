@@ -1,4 +1,5 @@
-import logo from '../../AgUSD2.png';
+import logo1 from '../../AgUSD2.png';
+import logo2 from '../../AgUSD.svg';
 import '../../App.css';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
@@ -17,10 +18,20 @@ const CustomButton = styled(Button)(({ theme }) => ({
 }));
 
 function Home() {
+  const Logo = () => {
+    const rand = (Math.random() * 2);
+    console.log(rand);
+    if (rand > 1) {
+      return (<img src={logo1} className="App-logo" alt="logo" />);
+    } else {
+      return(<img src={logo2} className="App-logo" alt="logo" />)
+    };
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Logo />
         <h2>Aggregated USD</h2>
         <p>
           The home of multi-fauceted stability.

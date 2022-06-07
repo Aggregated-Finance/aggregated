@@ -312,6 +312,7 @@ interface YvVault {
   function deposit (uint256 _amount, address recipient) external returns (uint256);
 }
 
+<<<<<<< HEAD
 contract Cooldown {
   uint256 cooldownTime = 30 minutes;
 
@@ -335,6 +336,10 @@ contract Cooldown {
 }
 
 contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, Cooldown  {
+=======
+
+contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
     /*
      *  AgUSD, Aggregated USD
      *  Aggregated USD is an overcollateralized stablecoin which works by:
@@ -385,10 +390,18 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
     bool public fusdtGate = true;
     bool public fraxGate = true;
 
+<<<<<<< HEAD
     address public multisig = 0x3e522051A9B1958Aa1e828AC24Afba4a551DF37d;
 
     uint256 public treasurySend = 2;
 
+=======
+    address private multisig = 0x3e522051A9B1958Aa1e828AC24Afba4a551DF37d;
+
+    uint256 public treasurySend = 2;
+
+
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
     event SetGate(string ASSET, bool NEWGATE);
     event ChangeSend(uint256 _original, uint256 _new);
     event ChangedMultisig(address _old, address _new);
@@ -399,11 +412,19 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
     }
 
 
+<<<<<<< HEAD
     // these functions will be payable nonReentrant isCooled to optimise gas
 
     constructor() ERC20("AggregatedUSD", "AgUSD") {  }
 
     function mintFromDAI(uint256 amount) public payable nonReentrant isCooled {
+=======
+    // these functions will be payable nonReentrant to optimise gas
+
+    constructor() ERC20("AggregatedUSD", "AgUSD") {  }
+
+    function mintFromDAI(uint256 amount) public payable nonReentrant {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 daiToken = IERC20(dai);
         require(daiGate, GATE_LOCKED.message);
         require(
@@ -420,10 +441,16 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
             amount / treasurySend
         );
         _mint(msg.sender, amount);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function mintFromUSDC(uint256 amount) public payable nonReentrant isCooled {
+=======
+    }
+
+    function mintFromUSDC(uint256 amount) public payable nonReentrant {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 usdcToken = IERC20(usdc);
         require(usdcGate, GATE_LOCKED.message);
         require(
@@ -440,10 +467,16 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
             (amount / 10**12) / treasurySend
         );
         _mint(msg.sender, amount);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function mintFromFUSDT(uint256 amount) public payable nonReentrant isCooled {
+=======
+    }
+
+    function mintFromFUSDT(uint256 amount) public payable nonReentrant {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 fusdtToken = IERC20(fusdt);
         require(fusdtGate, GATE_LOCKED.message);
         require(
@@ -460,10 +493,16 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
             (amount / 10**12) / treasurySend
         );
         _mint(msg.sender, amount);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function mintFromMIM(uint256 amount) public payable nonReentrant isCooled {
+=======
+    }
+
+    function mintFromMIM(uint256 amount) public payable nonReentrant {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 mimToken = IERC20(mim);
         require(mimGate, GATE_LOCKED.message);
         require(
@@ -480,10 +519,16 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
             amount / treasurySend
         );
        _mint(msg.sender, amount);
+<<<<<<< HEAD
        _triggerCooldown(_msgSender());
     }
 
     function mintFromFRAX(uint256 amount) public payable nonReentrant isCooled {
+=======
+    }
+
+    function mintFromFRAX(uint256 amount) public payable nonReentrant {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 fraxToken = IERC20(frax);
         require(fraxGate, GATE_LOCKED.message);
         require(
@@ -500,52 +545,85 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
             amount / treasurySend
         );
        _mint(msg.sender, amount);
+<<<<<<< HEAD
        _triggerCooldown(_msgSender());
     }
 
     function AgUSDToDAI(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
+=======
+    }
+
+    function AgUSDToDAI(uint256 amount) public payable nonReentrant apartFromOwner {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 daiToken = IERC20(dai);
         require(daiToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         daiToken.transfer(msg.sender, amount);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function AgUSDToFUSDT(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
+=======
+    }
+
+    function AgUSDToFUSDT(uint256 amount) public payable nonReentrant apartFromOwner {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 fusdtToken = IERC20(fusdt);
         require(fusdtToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         fusdtToken.transfer(msg.sender, amount / 10**12);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function AgUSDToUSDC(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
+=======
+    }
+
+    function AgUSDToUSDC(uint256 amount) public payable nonReentrant apartFromOwner {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 usdcToken = IERC20(usdc);
         require(usdcToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         usdcToken.transfer(msg.sender, amount / 10**12);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function AgUSDToMIM(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
+=======
+    }
+
+    function AgUSDToMIM(uint256 amount) public payable nonReentrant apartFromOwner {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 mimToken = IERC20(mim);
         require(mimToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         mimToken.transfer(msg.sender, amount);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
     }
 
     function AgUSDToFRAX(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
+=======
+    }
+
+    function AgUSDToFRAX(uint256 amount) public payable nonReentrant apartFromOwner {
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         IERC20 fraxToken = IERC20(frax);
         require(fraxToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         fraxToken.transfer(msg.sender, amount);
+<<<<<<< HEAD
         _triggerCooldown(_msgSender());
+=======
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
     }
 
     function getUSDCBalance() public view returns(uint256) {
@@ -594,7 +672,10 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
     }
 
     function setTreasurySent(uint256 newSend) public onlyOwner {
+<<<<<<< HEAD
         require(newSend >= 2, NOT_AUTH.message);
+=======
+>>>>>>> 19348625a98bd555fa87d53f210db18aaa7eee13
         emit ChangeSend(treasurySend, newSend);
         treasurySend = newSend;
     }

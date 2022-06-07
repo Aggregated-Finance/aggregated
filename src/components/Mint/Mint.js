@@ -21,6 +21,10 @@ import fusdt from './Images/fusdt.svg';
 import frax from './Images/frax.svg';
 import mim from './Images/mim.png';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import { truncateAddress } from '../../helpers/truncateAddress.js';
+
 const CustomButtonDai = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
@@ -82,7 +86,7 @@ const CustomButton = styled(Button)(({  _theme }) => ({
   textDecoration: 'none',
   '&:hover': {
     borderColor: '#ffffff',
-    backgroundColor: '#f0ab7c',
+    backgroundColor: 'transparent',
     textDecoration: 'none',
   }
 }));
@@ -142,7 +146,6 @@ class Mint extends Component {
     this.setModalFrax = this.setModalFrax.bind(this);
     this.setModalMim = this.setModalMim.bind(this);
 
-    this.connectWallet = this.connectWallet.bind(this);
 
     this.approveDai = this.approveDai.bind(this);
     this.mintDai = this.mintDai.bind(this);
@@ -161,12 +164,14 @@ class Mint extends Component {
 
     this.handleChange = this.handleChange.bind(this);
 
+    this.connectWallet = this.connectWallet.bind(this);
+    this.disconnectWallet = this.disconnectWallet.bind(this);
+
     this.setMaxDai = this.setMaxDai.bind(this);
     this.setMaxUsdc = this.setMaxUsdc.bind(this);
     this.setMaxFusdt = this.setMaxFusdt.bind(this);
     this.setMaxFrax = this.setMaxFrax.bind(this);
     this.setMaxMim = this.setMaxMim.bind(this);
-
   }
 
   setModalDai() {
@@ -232,6 +237,118 @@ class Mint extends Component {
   handleChange(event) {
     this.setState({ input: parseFloat(formatInput(event.target.value)) });
   }
+
+  disconnectWallet() {
+    this.setState({
+      account: null,
+      signer: null
+    })
+  }
+
+  setMaxDai() {
+    this.setState({
+      input: (this.state.holdings.dai)/10**18,
+    });
+  }
+
+  setMaxUsdc() {
+    this.setState({
+      input: (this.state.holdings.usdc)/10**6,
+    });
+  }
+
+  setMaxFusdt() {
+    this.setState({
+      input: (this.state.holdings.fusdt)/10**6,
+    });
+  }
+
+  setMaxFrax() {
+    this.setState({
+      input: (this.state.holdings.frax)/10**18,
+    });
+  }
+
+  setMaxMim() {
+    this.setState({
+      input: (this.state.holdings.mim)/10**18,
+    });
+  }
+
+  async connectWallet() {
+    window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [{
+        chainId: "0xFA",
+        rpcUrls: ["https://rpc.ftm.tools"],
+        chainName: "Fantom Opera",
+        nativeCurrency: {
+            name: "FTM",
+            symbol: "FTM",
+            decimals: 18
+        },
+        blockExplorerUrls: ["https://ftmscan.com/"]
+      }]
+    });
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 250);
+    //const { chainId } = await provider.getNetwork();
+    let signer = provider.getSigner();
+    let accounts = await provider.send("eth_requestAccounts", []);
+    let account = accounts[0];
+
+    this.setState({
+      account: account,
+      signer: signer,
+    })
+
+    let dai = new Contract("0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",abi,signer);
+    let usdc = new Contract("0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",abi,signer);
+    let fusdt = new Contract("0x049d68029688eAbF473097a2fC38ef61633A3C7A",abi,signer);
+    let frax = new Contract("0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",abi,signer);
+    let mim = new Contract("0x82f0B8B456c1A451378467398982d4834b6829c1",abi,signer);
+
+    let agUsd = new Contract(constants.agusd,agabi,signer);
+
+    let holdings = {
+      dai: 0,
+      usdc: 0,
+      fusdt: 0,
+      frax: 0,
+      mim: 0
+    }
+
+    await dai.functions.balanceOf(account).then(res => {
+      holdings.dai = res[0];
+    });
+
+    await usdc.functions.balanceOf(account).then(res => {
+      holdings.usdc = res[0];
+    });
+
+    await fusdt.functions.balanceOf(account).then(res => {
+      holdings.fusdt = res[0];
+    });
+
+    await frax.functions.balanceOf(account).then(res => {
+      holdings.frax = res[0];
+    });
+
+    await mim.functions.balanceOf(account).then(res => {
+      holdings.mim = res[0];
+    });
+
+    this.setState({
+      dai: dai,
+      usdc: usdc,
+      fusdt: fusdt,
+      frax: frax,
+      mim: mim,
+      holdings: holdings,
+      contract: agUsd
+    });
+  }
+
 
   async approveDai() {
     this.state.dai.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
@@ -383,117 +500,6 @@ class Mint extends Component {
     });
   }
 
-  async connectWallet() {
-    window.ethereum.request({
-      method: "wallet_addEthereumChain",
-      params: [{
-        chainId: "0xFA",
-        rpcUrls: ["https://rpc.ftm.tools"],
-        chainName: "Fantom Opera",
-        nativeCurrency: {
-            name: "FTM",
-            symbol: "FTM",
-            decimals: 18
-        },
-        blockExplorerUrls: ["https://ftmscan.com/"]
-      }]
-    });
-    const provider = new ethers.providers.Web3Provider(window.ethereum, 250);
-    //const { chainId } = await provider.getNetwork();
-    let signer = provider.getSigner();
-    let accounts = await provider.send("eth_requestAccounts", []);
-    let account = accounts[0];
-
-    this.setState({
-      account: account,
-      signer: signer,
-    })
-
-    let dai = new Contract("0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",abi,signer);
-    let usdc = new Contract("0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",abi,signer);
-    let fusdt = new Contract("0x049d68029688eAbF473097a2fC38ef61633A3C7A",abi,signer);
-    let frax = new Contract("0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",abi,signer);
-    let mim = new Contract("0x82f0B8B456c1A451378467398982d4834b6829c1",abi,signer);
-
-    let agUsd = new Contract(constants.agusd,agabi,signer);
-
-    let holdings = {
-      dai: 0,
-      usdc: 0,
-      fusdt: 0,
-      frax: 0,
-      mim: 0
-    }
-
-    await dai.functions.balanceOf(account).then(res => {
-      holdings.dai = res[0];
-    });
-
-    await usdc.functions.balanceOf(account).then(res => {
-      holdings.usdc = res[0];
-    });
-
-    await fusdt.functions.balanceOf(account).then(res => {
-      holdings.fusdt = res[0];
-    });
-
-    await frax.functions.balanceOf(account).then(res => {
-      holdings.frax = res[0];
-    });
-
-    await mim.functions.balanceOf(account).then(res => {
-      holdings.mim = res[0];
-    });
-
-    this.setState({
-      dai: dai,
-      usdc: usdc,
-      fusdt: fusdt,
-      frax: frax,
-      mim: mim,
-      holdings: holdings,
-      contract: agUsd
-    });
-  }
-
-  disconnectWallet() {
-    this.setState({
-      account: null,
-      signer: null
-    })
-  }
-
-  setMaxDai() {
-    this.setState({
-      input: (this.state.holdings.dai)/10**18,
-    });
-  }
-
-  setMaxUsdc() {
-    this.setState({
-      input: (this.state.holdings.usdc)/10**6,
-    });
-  }
-
-  setMaxFusdt() {
-    this.setState({
-      input: (this.state.holdings.fusdt)/10**6,
-    });
-  }
-
-  setMaxFrax() {
-    this.setState({
-      input: (this.state.holdings.frax)/10**18,
-    });
-  }
-
-  setMaxMim() {
-    this.setState({
-      input: (this.state.holdings.mim)/10**18,
-    });
-  }
-
-
   render() {
     return (
       <div className="App">
@@ -509,20 +515,40 @@ class Mint extends Component {
                 marginTop: '7.5vh'
               }}
               onClick={this.connectWallet}
-            >{this.state.account || "Connect Wallet"}</CustomButton>
+            >{this.state.account  || "Connect Wallet"}</CustomButton>
             <h1>The Gluon Minter</h1>
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
           <h1>The Gluon Minter</h1>
           <CustomButton
-            variant="outlined"
+            variant='contained'
             style={{
               textDecoration: 'none',
-              color: '#ffffff'
+              color: '#ffffff',
+              backgroundColor: '#e69965',
+              borderColor: 'black',
+              size: 'small'
             }}
-            onClick={this.connectWallet}
-          >{this.state.account || "Connect Wallet"}</CustomButton>
-
+          >{this.state.account ?
+            <CustomButton
+              variant="text"
+              style={{
+                textDecoration: 'none',
+                color: '#ffffff',
+                backgroundColor: '#e69965'
+              }}
+              onClick={this.disconnectWallet}
+            >{truncateAddress(this.state.account)} <DeleteIcon /></CustomButton> :
+            <CustomButton
+              variant="text"
+              style={{
+                textDecoration: 'none',
+                color: '#ffffff',
+                borderColor: 'black'
+              }}
+              onClick={this.connectWallet}
+            >Connect Wallet</CustomButton>}
+          </CustomButton>
           <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
           <Modal
             cancelText="Approve"
