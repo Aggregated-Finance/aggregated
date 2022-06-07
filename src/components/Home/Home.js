@@ -20,7 +20,6 @@ const CustomButton = styled(Button)(({ theme }) => ({
 function Home() {
   const Logo = () => {
     const rand = (Math.random() * 2);
-    console.log(rand);
     if (rand > 1) {
       return (<img src={logo1} className="App-logo" alt="logo" />);
     } else {
