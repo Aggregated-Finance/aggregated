@@ -8,8 +8,6 @@ import Stack from '@mui/material/Stack';
 
 import { Link } from 'react-router-dom';
 
-import { useANS } from '../../helpers/useAddressAndSigner.js';
-
 import Toastify from 'toastify-js';
 import "../../toastify.css";
 
@@ -92,6 +90,7 @@ const CustomButton = styled(Button)(({  _theme }) => ({
 }));
 
 const prov = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
+
 
 var forb = [
   '~',
@@ -449,8 +448,6 @@ class Mint extends Component {
     await mim.functions.balanceOf(account).then(res => {
       holdings.mim = res[0];
     });
-
-    ANS(account, signer);
 
     this.setState({
       dai: dai,
