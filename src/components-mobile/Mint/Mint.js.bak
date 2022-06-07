@@ -93,6 +93,13 @@ const CustomButton = styled(Button)(({  _theme }) => ({
 
 const prov = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
 
+function ANS(account, signer) {
+  console.log(useANS(true, {
+    address: account,
+    signer: signer,
+  }));
+}
+
 var forb = [
   '~',
   '@',
