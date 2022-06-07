@@ -1,4 +1,4 @@
-import logo from '../../AgUSD.svg';
+import logo from '../../AgUSD2.png';
 import '../../App.css';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';

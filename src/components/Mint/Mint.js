@@ -6,6 +6,8 @@ import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+import { useANS } from '../../helpers/useAddressAndSigner.js';
+
 import Toastify from 'toastify-js';
 import "../../toastify.css";
 
@@ -496,7 +498,7 @@ class Mint extends Component {
     return (
       <div className="App">
         <header className="gluon" style={{
-          paddingTop: '0vh'
+          padding: '0vh'
         }}>
           {/*
             <CustomButton

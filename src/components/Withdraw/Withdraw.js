@@ -337,7 +337,7 @@ class Withdraw extends Component {
     return (
       <div className="App">
         <header className="gluon" style={{
-          paddingTop: '0vh'
+          padding: '0vh'
         }}>
           {/*
             <CustomButton

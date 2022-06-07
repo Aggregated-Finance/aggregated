@@ -8,6 +8,8 @@ import Stack from '@mui/material/Stack';
 
 import { Link } from 'react-router-dom';
 
+import { useANS } from '../../helpers/useAddressAndSigner.js';
+
 import Toastify from 'toastify-js';
 import "../../toastify.css";
 
@@ -39,7 +41,7 @@ const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
   borderRadius: '30px',
   textDecoration: 'none',
   '&:hover': {
-    borderColor: '#ffffff', 
+    borderColor: '#ffffff',
     backgroundColor: '#3B2E4D',
     textDecoration: 'none',
   }
@@ -90,6 +92,13 @@ const CustomButton = styled(Button)(({  _theme }) => ({
 }));
 
 const prov = new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
+
+function ANS(account, signer) {
+  console.log(useANS(true, {
+    address: account,
+    signer: signer,
+  }));
+}
 
 var forb = [
   '~',
@@ -447,6 +456,8 @@ class Mint extends Component {
     await mim.functions.balanceOf(account).then(res => {
       holdings.mim = res[0];
     });
+
+    ANS(account, signer);
 
     this.setState({
       dai: dai,
