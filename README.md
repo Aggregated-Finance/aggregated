@@ -76,4 +76,4 @@ AgUSD - Custom functions
 ## The end!
 Make sure to⭐star or 👀 watch the repo to be notified for updates!
 
-- AgTeam
+Signed, AgTeam.
