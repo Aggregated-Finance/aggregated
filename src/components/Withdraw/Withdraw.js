@@ -266,8 +266,8 @@ class Withdraw extends Component {
   }
 
   async burnUsdc() {
-    this.state.contract.functions.AgUSDToUSDC(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
+    this.state.contract.functions.AgUSDToUSDC((ethers.utils.parseEther((this.state.input).toString())).toString()).catch(e => {
+      
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -312,7 +312,6 @@ class Withdraw extends Component {
 
   async burnMim() {
     this.state.contract.functions.AgUSDToMIM(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
       Toastify({
         text: `Unknown error: ${e.message}`,
         duration: 2000,
@@ -334,7 +333,7 @@ class Withdraw extends Component {
 
   setMax() {
     this.setState({
-      input: this.state.holding,
+      input: (this.state.holding)/10**18,
     });
   }
 
@@ -387,7 +386,7 @@ class Withdraw extends Component {
               onClick={this.connectWallet}
             >Connect Wallet</CustomButton>}
           </CustomButton>
-          <h2>AgUSD in wallet: {this.state.holding || "None"}</h2>
+          <h2>AgUSD in wallet: {(parseInt(this.state.holding._hex,16)/10**18).toString() || "None"}</h2>
           <Modal
             cancelText="Approve"
             id="regular"
@@ -415,7 +414,7 @@ class Withdraw extends Component {
               }}
               onChange={this.handleChange}
               type="number"
-              placeholder={`AgUSD Balance: ${0}`}
+              placeholder={`AgUSD Balance: ${this.state.holding/10**18}`}
               value={(this.state.input || "")}
             />
             <CustomButton
@@ -458,7 +457,7 @@ class Withdraw extends Component {
             }}
             onChange={this.handleChange}
             type="number"
-            placeholder={`AgUSD Balance: ${0}`}
+            placeholder={`AgUSD Balance: ${this.state.holding/10**18}`}
             value={(this.state.input || "")}
           />
           <CustomButton
@@ -501,7 +500,7 @@ class Withdraw extends Component {
             }}
             onChange={this.handleChange}
             type="number"
-            placeholder={`AgUSD Balance: ${0}`}
+            placeholder={`AgUSD Balance: ${this.state.holding/10**18}`}
             value={(this.state.input || "")}
           />
           <CustomButton
@@ -544,7 +543,7 @@ class Withdraw extends Component {
             }}
             onChange={this.handleChange}
             type="number"
-            placeholder={`AgUSD Balance: ${0}`}
+            placeholder={`AgUSD Balance: ${this.state.holding/10**18}`}
             value={(this.state.input || "")}
           />
           <CustomButton
@@ -587,7 +586,7 @@ class Withdraw extends Component {
             }}
             onChange={this.handleChange}
             type="number"
-            placeholder={`AgUSD Balance: ${0}`}
+            placeholder={`AgUSD Balance: ${this.state.holding/10**18}`}
             value={(this.state.input || "")}
           />
           <CustomButton

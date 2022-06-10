@@ -18,7 +18,7 @@ import InfoM from "./components-mobile/Info/Info.js";
 
 /*function Scrollbar1() {
   return (
-    <Scrollbar
+    <Scrollbar 
       autoHide
       autoHideTimeout={1000}
       autoHideDuration={200}

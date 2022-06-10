@@ -518,7 +518,7 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
 
     function AgUSDToFUSDT(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
         IERC20 fusdtToken = IERC20(fusdt);
-        require(fusdtToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
+        require(fusdtToken.balanceOf(address(this)) >= (amount / 10**12), NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         fusdtToken.transfer(msg.sender, amount / 10**12);
@@ -527,7 +527,7 @@ contract AgUSD is ERC20, ERC20Burnable, Ownable, AGUSDErrors, ReentrancyGuard, C
 
     function AgUSDToUSDC(uint256 amount) public payable nonReentrant isCooled apartFromOwner {
         IERC20 usdcToken = IERC20(usdc);
-        require(usdcToken.balanceOf(address(this)) >= amount, NOT_ENOUGH_TO_REDEEM.message);
+        require(usdcToken.balanceOf(address(this)) >= (amount  / 10**12), NOT_ENOUGH_TO_REDEEM.message);
         require(balanceOf(msg.sender) >= amount);
         burn(amount);
         usdcToken.transfer(msg.sender, amount / 10**12);
