@@ -2,7 +2,7 @@
 ## The home of stability
 
 The AgFin repo has 2 uses:
- - (React Website)[https://aggregated.tk]
+ - [React Website](https://aggregated.tk)
  - Hardhat contracts and tests
 
 ## React website
@@ -76,4 +76,4 @@ AgUSD - Custom functions
 ## The end!
 Make sure to⭐star or 👀 watch the repo to be notified for updates!
 
-- AgTeam
+Signed, AgTeam.
