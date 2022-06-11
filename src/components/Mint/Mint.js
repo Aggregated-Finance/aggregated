@@ -352,151 +352,262 @@ class Mint extends Component {
 
   async approveDai() {
     this.state.dai.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async mintDai() {
     this.state.contract.functions.mintFromDAI(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
 
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async approveUsdc() {
     this.state.usdc.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async mintUsdc() {
     this.state.contract.functions.mintFromUSDC(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async approveFusdt() {
     this.state.fusdt.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async mintFusdt() {
     this.state.contract.functions.mintFromFUSDT(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async approveFrax() {
     this.state.frax.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async mintFrax() {
     this.state.contract.functions.mintFromFRAX(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async approveMim() {
     this.state.mim.functions.approve(constants.agusd,"115792089237316195423570985008687907853269984665640564039457584007913129639935").catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async mintMim() {
     this.state.contract.functions.mintFromMIM(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
