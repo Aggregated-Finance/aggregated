@@ -25,7 +25,10 @@ const Footer = () => {
             <FooterLink href="https://t.me/AggregatedFin">Telegram Chat</FooterLink>
             <FooterLink href="https://t.me/AggregatedAnn">Telegram Announcements</FooterLink>
           </Column>
-          <Column />
+          <Column>
+            <Heading>Use AgUSD</Heading>
+            <FooterLink href="https://ftm.curve.fi/factory/107">Swap at Curve</FooterLink>
+          </Column>
           <Column>
             <Heading>Social Media</Heading>
             <FooterLink href="https://twitter.com/Aggregated_">

@@ -33,7 +33,7 @@ class Navbar extends Component {
 
     return (
       <div className="navbarheader" style={{
-        padding: '14px 27px',
+        padding: '14px 14px',
         display: 'static'
       }}>
         <Stack direction="row" spacing={23} style={{
