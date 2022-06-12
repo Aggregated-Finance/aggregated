@@ -28,6 +28,7 @@ const Footer = () => {
           <Column>
             <Heading>Use AgUSD</Heading>
             <FooterLink href="https://ftm.curve.fi/factory/107">Swap at Curve</FooterLink>
+            <FooterLink href="https://beets.fi/#/pool/0xa97b9d848b08804634ba1eb5bb8260cb75264a290001000000000000000004b6">BeethovenX Pool</FooterLink>
           </Column>
           <Column>
             <Heading>Social Media</Heading>
