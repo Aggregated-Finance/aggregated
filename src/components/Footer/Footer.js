@@ -39,10 +39,17 @@ const Footer = () => {
                 </span>
               </i>
             </FooterLink>
-            <FooterLink href="https://github.com/FantomsOpera">
+            <FooterLink href="https://github.com/Aggregated-Finance">
               <i className="fab fa-instagram">
                 <span style={{ marginLeft: "10px" }}>
                   GitHub
+                </span>
+              </i>
+            </FooterLink>
+            <FooterLink href="https://medium.com/@aggregated">
+              <i className="fab fa-instagram">
+                <span style={{ marginLeft: "10px" }}>
+                  Medium
                 </span>
               </i>
             </FooterLink>
