@@ -757,12 +757,14 @@ class Mint extends Component {
               onClick={this.connectWallet}
             >Connect Wallet</CustomButton>}
           </CustomButton>*/}
-          <Stack direction="row" margin={2}>
-            <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}>Mint with DAI</CustomButtonDai>
-            <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}>Mint with USDC</CustomButtonUsdc>
-            <CustomButtonFusdt style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFusdt}>Mint with FUSDT</CustomButtonFusdt>
-            <CustomButtonFrax style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFrax}>Mint with FRAX</CustomButtonFrax>
-            <CustomButtonMim style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalMim}>Mint with MIM</CustomButtonMim>
+          <Stack direction="row" margin={1}
+           style={{opacity: '0.90'}} >
+            <h5 >MINT WITH</h5>
+            <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}><img src={dai} height="33" width="33"></img></CustomButtonDai>
+            <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}><img src={usdc} height="33" width="33"></img></CustomButtonUsdc>
+            <CustomButtonFusdt style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFusdt}><img src={fusdt} height="33" width="33"></img></CustomButtonFusdt>
+            <CustomButtonFrax style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFrax}><img src={frax} height="33" width="33"></img></CustomButtonFrax>
+            <CustomButtonMim style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalMim}><img src={mim} height="33" width="33"></img></CustomButtonMim>
           </Stack>
           {this.state.showModal.dai ? (<>
           <Wrapper>
