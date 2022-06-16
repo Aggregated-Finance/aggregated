@@ -98,7 +98,8 @@ const TokenInfo = styled(Flex)`
     }
 `
 
-const CustomButtonDai = styled(Button)(({ _theme }) => ({
+
+const CustomButtonDai = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -109,7 +110,7 @@ const CustomButtonDai = styled(Button)(({ _theme }) => ({
   }
 }));
 
-const CustomButtonUsdc = styled(Button)(({ _theme }) => ({
+const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -120,7 +121,7 @@ const CustomButtonUsdc = styled(Button)(({ _theme }) => ({
   }
 }));
 
-const CustomButtonFusdt = styled(Button)(({ _theme }) => ({
+const CustomButtonFusdt = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -131,7 +132,7 @@ const CustomButtonFusdt = styled(Button)(({ _theme }) => ({
   }
 }));
 
-const CustomButtonFrax = styled(Button)(({ _theme }) => ({
+const CustomButtonFrax = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -142,7 +143,7 @@ const CustomButtonFrax = styled(Button)(({ _theme }) => ({
   }
 }));
 
-const CustomButtonMim = styled(Button)(({ _theme }) => ({
+const CustomButtonMim = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -153,13 +154,13 @@ const CustomButtonMim = styled(Button)(({ _theme }) => ({
   }
 }));
 
-const CustomButton = styled(Button)(({ _theme }) => ({
+const CustomButton = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
   '&:hover': {
     borderColor: '#ffffff',
-    backgroundColor: '#f0ab7c',
+    backgroundColor: 'transparent',
     textDecoration: 'none',
   }
 }));
@@ -225,12 +226,13 @@ class Withdraw extends Component {
   setModalDai() {
     this.setState({
       showModal: {
-        dai: !(this.state.showModal.dai),
+        dai: true,
         usdc: false,
         fusdt: false,
         frax: false,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -238,11 +240,12 @@ class Withdraw extends Component {
     this.setState({
       showModal: {
         dai: false,
-        usdc: !(this.state.showModal.usdc),
+        usdc: true,
         fusdt: false,
         frax: false,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -251,10 +254,11 @@ class Withdraw extends Component {
       showModal: {
         dai: false,
         usdc: false,
-        fusdt: !(this.state.showModal.fusdt),
+        fusdt: true,
         frax: false,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -264,9 +268,10 @@ class Withdraw extends Component {
         dai: false,
         usdc: false,
         fusdt: false,
-        frax: !(this.state.showModal.frax),
+        frax: true,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -277,8 +282,9 @@ class Withdraw extends Component {
         usdc: false,
         fusdt: false,
         frax: false,
-        mim: !(this.state.showModal.mim)
-      }
+        mim: true,
+      },
+      input: 0,
     });
   }
 
@@ -309,6 +315,16 @@ class Withdraw extends Component {
 
     let agUsd = new Contract(constants.agusd,agabi,signer);
 
+    Toastify({
+      text: `Connecting wallet: ${truncateAddress(account)}`,
+      duration: 7000,
+      close: true,
+      gravity: 'top',
+      style: {
+        background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+      },
+    }).showToast();
+
     this.setState({
       account: account,
       signer: signer,
@@ -328,75 +344,131 @@ class Withdraw extends Component {
 
   async burnDai() {
     this.state.contract.functions.AgUSDToDAI(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async burnUsdc() {
     this.state.contract.functions.AgUSDToUSDC((ethers.utils.parseEther((this.state.input).toString())).toString()).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async burnFusdt() {
     this.state.contract.functions.AgUSDToFUSDT(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async burnFrax() {
     this.state.contract.functions.AgUSDToFRAX(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
   async burnMim() {
     this.state.contract.functions.AgUSDToMIM(ethers.utils.parseEther((this.state.input).toString())).catch(e => {
-      Toastify({
-        text: `Unknown error: ${e.message}`,
-        duration: 2000,
-        close: true,
-        gravity: 'top',
-        style: {
-          background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
-        },
-      }).showToast();
+      if (e.data.message) {
+        Toastify({
+          text: `Unknown error: ${e.data.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: `Unknown error: ${e.message}`,
+          duration: 2000,
+          close: true,
+          gravity: 'top',
+          style: {
+            background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+          },
+        }).showToast();
+      }
     });
   }
 
@@ -433,38 +505,8 @@ class Withdraw extends Component {
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
           <h1>The Boson Burner</h1>
-          <CustomButton
-            variant='contained'
-            style={{
-              textDecoration: 'none',
-              color: '#ffffff',
-              backgroundColor: '#e69965',
-              borderColor: 'black',
-              size: 'small',
-              borderRadius: '30px'
-            }}
-          >{this.state.account ?
-            <CustomButton
-              variant="text"
-              style={{
-                textDecoration: 'none',
-                color: '#ffffff',
-                backgroundColor: '#e69965'
-              }}
-              onClick={this.disconnectWallet}
-            >{truncateAddress(this.state.account)} <DeleteIcon /></CustomButton> :
-            <CustomButton
-              variant="text"
-              style={{
-                textDecoration: 'none',
-                color: '#ffffff',
-                borderColor: 'black',
-                borderRadius: '30px'
-              }}
-              onClick={this.connectWallet}
-            >Connect Wallet</CustomButton>}
-          </CustomButton>
-          <h2>AgUSD in wallet: {(parseInt(this.state.holding._hex,16)/10**18).toFixed(6).toString() || "None"}</h2>
+
+          {isNaN((parseInt(this.state.holding._hex,16)/10**18).toFixed(6)) ? <></> : <h2>{`AgUSD in wallet: $${(parseInt(this.state.holding._hex,16)/10**18).toFixed(6)}`}</h2>}
           <Stack direction="row" margin={2}>
             <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}>Burn with DAI</CustomButtonDai>
             <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}>Burn with USDC</CustomButtonUsdc>
@@ -482,7 +524,7 @@ class Withdraw extends Component {
 
                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
                   <InputAmount placeholder={((this.state.holding)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
-                  <ButtonMax width={"4vw"} onClick={this.setMaxDai}>
+                  <ButtonMax width={"4vw"} onClick={this.setMax}>
                     MAX
                   </ButtonMax>
                   <TokenInfo onClick={function noRefCheck(){}}>
@@ -544,7 +586,7 @@ class Withdraw extends Component {
 
                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
                   <InputAmount placeholder={((this.state.holding)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
-                  <ButtonMax width={"4vw"} onClick={this.setMaxUsdc}>
+                  <ButtonMax width={"4vw"} onClick={this.setMax}>
                     MAX
                   </ButtonMax>
                   <TokenInfo onClick={function noRefCheck(){}}>
@@ -606,7 +648,7 @@ class Withdraw extends Component {
 
                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
                   <InputAmount placeholder={((this.state.holding)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
-                  <ButtonMax width={"4vw"} onClick={this.setMaxFusdt}>
+                  <ButtonMax width={"4vw"} onClick={this.setMax}>
                     MAX
                   </ButtonMax>
                   <TokenInfo onClick={function noRefCheck(){}}>
@@ -668,7 +710,7 @@ class Withdraw extends Component {
 
                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
                   <InputAmount placeholder={((this.state.holding)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
-                  <ButtonMax width={"4vw"} onClick={this.setMaxFrax}>
+                  <ButtonMax width={"4vw"} onClick={this.setMax}>
                     MAX
                   </ButtonMax>
                   <TokenInfo onClick={function noRefCheck(){}}>
@@ -730,7 +772,7 @@ class Withdraw extends Component {
 
                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
                   <InputAmount placeholder={((this.state.holding)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
-                  <ButtonMax width={"4vw"} onClick={this.setMaxMim}>
+                  <ButtonMax width={"4vw"} onClick={this.setMax}>
                     MAX
                   </ButtonMax>
                   <TokenInfo onClick={function noRefCheck(){}}>

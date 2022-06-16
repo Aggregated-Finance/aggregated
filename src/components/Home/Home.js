@@ -28,7 +28,7 @@ function Home() {
   }
 
   return (
-    <div className="App">
+    <div className="Apph">
       <header className="App-header">
         <Logo />
         <h2>Aggregated USD</h2>

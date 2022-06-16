@@ -18,7 +18,7 @@ import InfoM from "./components-mobile/Info/Info.js";
 
 /*function Scrollbar1() {
   return (
-    <Scrollbar 
+    <Scrollbar
       autoHide
       autoHideTimeout={1000}
       autoHideDuration={200}
@@ -51,7 +51,7 @@ function WInfo() {
 
 function App() {
   return (
-    <div className="App">
+    <div className="Apph">
       <BrowserView>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -4,6 +4,20 @@
   text-align: center;
   background-image: linear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12));
   font-family: 'Montserrat', sans-serif;
+  animation: AnimateBG 1s ease infinite;
+}
+
+.Apph {
+  text-align: center;
+  background-image: linear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12));
+  font-family: 'Montserrat', sans-serif;
+  animation: AnimateBG 1s ease infinite;
+}
+
+@keyframes AnimateBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 .text {

@@ -45,7 +45,7 @@ const ButtonSwap = styled(ButtonSyncActive)`
     margin-top: 3px;
     border-radius: 15px;
     cursor: pointer;
-    transition:all 0.3s;
+    transition: background 0.2s ease-in-out;
     transition-timing-function: ease-in-out;
     &:hover {
       background: linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124));
@@ -256,7 +256,8 @@ class Mint extends Component {
         fusdt: false,
         frax: false,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -268,7 +269,8 @@ class Mint extends Component {
         fusdt: false,
         frax: false,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -280,7 +282,8 @@ class Mint extends Component {
         fusdt: true,
         frax: false,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -292,7 +295,8 @@ class Mint extends Component {
         fusdt: false,
         frax: true,
         mim: false
-      }
+      },
+      input: 0,
     });
   }
 
@@ -304,7 +308,8 @@ class Mint extends Component {
         fusdt: false,
         frax: false,
         mim: true,
-      }
+      },
+      input: 0,
     });
   }
 
@@ -371,6 +376,16 @@ class Mint extends Component {
     let accounts = await provider.send("eth_requestAccounts", []);
     let account = accounts[0];
 
+    Toastify({
+      text: `Connecting wallet: ${truncateAddress(account)}`,
+      duration: 7000,
+      close: true,
+      gravity: 'top',
+      style: {
+        background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+      },
+    }).showToast();
+
     this.setState({
       account: account,
       signer: signer,
@@ -383,6 +398,12 @@ class Mint extends Component {
     let mim = new Contract("0x82f0B8B456c1A451378467398982d4834b6829c1",abi,signer);
 
     let agUsd = new Contract(constants.agusd,agabi,signer);
+
+    let tvl;
+
+    await agUsd.functions.totalSupply().then(res => {
+      tvl = (parseInt(res[0]._hex, 16)/10**18).toFixed(2);
+    });
 
     let holdings = {
       dai: 0,
@@ -419,7 +440,8 @@ class Mint extends Component {
       frax: frax,
       mim: mim,
       holdings: holdings,
-      contract: agUsd
+      contract: agUsd,
+      tvl: tvl
     });
   }
 
@@ -704,7 +726,7 @@ class Mint extends Component {
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
           <h1>The Gluon Minter</h1>
-          <CustomButton
+          {/*<CustomButton
             variant='contained'
             style={{
               textDecoration: 'none',
@@ -734,8 +756,7 @@ class Mint extends Component {
               }}
               onClick={this.connectWallet}
             >Connect Wallet</CustomButton>}
-          </CustomButton>
-          <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
+          </CustomButton>*/}
           <Stack direction="row" margin={2}>
             <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}>Mint with DAI</CustomButtonDai>
             <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}>Mint with USDC</CustomButtonUsdc>
@@ -1071,6 +1092,7 @@ class Mint extends Component {
             }}
               onClick={this.connectWallet}
             >Connect Wallet</ButtonSwap>)}</>) : <div/>}
+          {this.state.tvl > 0 && <h2>AgUSD Total Value Locked: {`$${(this.state.tvl).toString()}`}</h2>}
           <br /><br />
         </header>
       </div>
