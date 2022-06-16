@@ -14,7 +14,7 @@ const Footer = () => {
     <Box>
       <h1 style={{ color: "white",
                    textAlign: "center",
-                   marginTop: "-50px" }}>
+                   marginTop: "-4.5%" }}>
         Aggregated Finance: making stables, more stable.
       </h1>
       <Container>

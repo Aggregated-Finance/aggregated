@@ -40,9 +40,11 @@ const ButtonSwap = styled(ButtonSyncActive)`
     background: linear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12));
     color: #FFF;
     font-size: 20px;
+    width: 55%;
+    max-width: 56%;
     border: 2px solid #DFEFCA;
     font-family: 'Montserrat';
-    margin-top: 3px;
+    margin-top: 2vh;
     border-radius: 15px;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
@@ -710,7 +712,7 @@ class Mint extends Component {
     return (
       <div className="App">
         <header className="gluon" style={{
-          padding: '0vh'
+          padding: '1vw'
         }}>
           {/*
             <CustomButton
@@ -725,7 +727,8 @@ class Mint extends Component {
             <h1>The Gluon Minter</h1>
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
-          <h1>The Gluon Minter</h1>
+          <h1 
+           style={{height: '4vw'}}>The Gluon Minter</h1>
           {/*<CustomButton
             variant='contained'
             style={{
@@ -1099,7 +1102,7 @@ class Mint extends Component {
         </header>
       </div>
     );
-  };
+  }
 }
 
 export default Mint;
