@@ -1,12 +1,18 @@
 import '../../App.css';
+import logo from '../../AgUSD.png';
 import constants from '../../constants.js';
 import React, { Component } from 'react';
-import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import { useANS } from '../../helpers/useAddressAndSigner.js';
+import arrow from './single-arrow.svg';
+
+import { Type } from '../Text';
+import { ButtonMax } from '../Button';
+import CurrencyLogo from '../Currency';
 
 import Toastify from 'toastify-js';
 import "../../toastify.css";
@@ -21,9 +27,77 @@ import fusdt from './Images/fusdt.svg';
 import frax from './Images/frax.svg';
 import mim from './Images/mim.png';
 
+import { Flex, Box, Image } from 'rebass/styled-components';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { truncateAddress } from '../../helpers/truncateAddress.js';
+
+import { ButtonSyncDeactivated, ButtonSyncActive } from '../Button';
+
+
+const ButtonSwap = styled(ButtonSyncActive)`
+    background: linear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12));
+    color: #FFF;
+    font-size: 20px;
+    border: 2px solid #DFEFCA;
+    font-family: 'Montserrat';
+    margin-top: 3px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition:all 0.3s;
+    transition-timing-function: ease-in-out;
+    &:hover {
+      background: linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124));
+    }
+`
+
+const Wrapper = styled.div`
+    position: relative;
+    height: 90px;
+    width: 70vh;
+    margin-top: ${({ mt }) => (mt && mt)};
+    background: rgb(192, 88, 17);
+    max-width: 70vh;
+    margin-right: 15vh;
+    margin-left: 15vh;
+    border: 2px solid #DFEFCA;
+    padding:0 15px;
+    border-radius: ${({ borderRadius }) => borderRadius || "15px"};
+`
+
+const InputAmount = styled.input.attrs({
+    type: "number",
+    autocomplete: "off",
+    autocorrect: "off",
+    spellcheck: "false"
+})`
+    font-weight: 400;
+    flex: 1 1 auto;
+    border: #FFF;
+    outline-style: none;
+    width: ${({ width }) => width || "0px"};
+    font-size: ${({ fontSize }) => fontSize || "25px"};
+    color: #FFF;
+    background: transparent;
+    cursor: ${({ disabled }) => (disabled && "not-allowed")};
+
+    ::placeholder {
+      color: #ABBBA3;
+    }
+
+    ::-ms-input-placeholder {
+      color: #ABBBA3;
+    }
+`
+
+const TokenInfo = styled(Flex)`
+    align-items:center;
+    cursor:${({ active }) => active ? "pointer" : "default"};
+    &:hover{
+        filter:${({ active }) => active && "brightness(0.8)"};
+    }
+`
 
 const CustomButtonDai = styled(Button)(({  _theme }) => ({
   borderColor: '#ffffff',
@@ -120,7 +194,7 @@ class Mint extends Component {
     this.state = {
       tvl: 0,
       showModal: {
-        dai: false,
+        dai: true,
         usdc: false,
         fusdt: false,
         frax: false,
@@ -177,7 +251,7 @@ class Mint extends Component {
   setModalDai() {
     this.setState({
       showModal: {
-        dai: !(this.state.showModal.dai),
+        dai: true,
         usdc: false,
         fusdt: false,
         frax: false,
@@ -190,7 +264,7 @@ class Mint extends Component {
     this.setState({
       showModal: {
         dai: false,
-        usdc: !(this.state.showModal.usdc),
+        usdc: true,
         fusdt: false,
         frax: false,
         mim: false
@@ -203,7 +277,7 @@ class Mint extends Component {
       showModal: {
         dai: false,
         usdc: false,
-        fusdt: !(this.state.showModal.fusdt),
+        fusdt: true,
         frax: false,
         mim: false
       }
@@ -216,7 +290,7 @@ class Mint extends Component {
         dai: false,
         usdc: false,
         fusdt: false,
-        frax: !(this.state.showModal.frax),
+        frax: true,
         mim: false
       }
     });
@@ -229,7 +303,7 @@ class Mint extends Component {
         usdc: false,
         fusdt: false,
         frax: false,
-        mim: !(this.state.showModal.mim),
+        mim: true,
       }
     });
   }
@@ -637,7 +711,8 @@ class Mint extends Component {
               color: '#ffffff',
               backgroundColor: '#e69965',
               borderColor: 'black',
-              size: 'small'
+              size: 'small',
+              borderRadius: '30px'
             }}
           >{this.state.account ?
             <CustomButton
@@ -654,314 +729,349 @@ class Mint extends Component {
               style={{
                 textDecoration: 'none',
                 color: '#ffffff',
-                borderColor: 'black'
+                borderColor: 'black',
+                borderRadius: '30px'
               }}
               onClick={this.connectWallet}
             >Connect Wallet</CustomButton>}
           </CustomButton>
           <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
-          <Modal
-            cancelText="Approve"
-            id="regular"
-            width="50vw"
-            height="30vh"
-            okText="Mint AgUSD!"
-            isVisible={this.state.showModal.dai}
-            onCancel={this.approveDai}
-            onCloseButtonPressed={this.setModalDai}
-            onOk={this.mintDai}
-            title={<h3 style={{
-              fontFamily: 'Montserrat'
-            }}>Mint AgUSD With DAI</h3>}
-            style={{
-              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
-            }}
-          >
-            <Stack direction="row" margin={2}>
-            <Input
-              alabel="Amount"
-              width="90%"
-              style={{
-                fontFamily: 'Montserrat'
-              }}
-              onChange={this.handleChange}
-              type="number"
-              placeholder={`DAI Balance: ${(this.state.holdings.dai)/10**18}`}
-              value={(this.state.input || "")}
-            />
-            <CustomButton
-              onClick={this.setMaxDai}
-              style={{
-                alignSelf: 'right',
-                width: '9%',
-                color: '#00000f',
-                backgroundColor: 'transparent',
-                marginLeft: '1%'
-              }}
-            >Max</CustomButton>
-            </Stack>
-            <br />
-          </Modal>
-          <Modal
-            cancelText="Approve"
-            id="regular"
-            width="50vw"
-            height="30vh"
-            okText="Mint AgUSD!"
-            isVisible={this.state.showModal.usdc}
-            onCancel={this.approveUsdc}
-            onCloseButtonPressed={this.setModalUsdc}
-            onOk={this.mintUsdc}
-            title={<h3 style={{
-              fontFamily: 'Montserrat'
-            }}>Mint AgUSD With USDC</h3>}
-            style={{
-              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
-            }}
-          >
           <Stack direction="row" margin={2}>
-          <Input
-            alabel="Amount"
-            width="90%"
-            style={{
-              fontFamily: 'Montserrat'
-            }}
-            onChange={this.handleChange}
-            type="number"
-            placeholder={`USDC Balance: ${(this.state.holdings.usdc)/10**6}`}
-            value={(this.state.input || "")}
-          />
-          <CustomButton
-            onClick={this.setMaxUsdc}
-            style={{
-              alignSelf: 'right',
-              width: '9%',
-              color: '#00000f',
-              backgroundColor: 'transparent',
-              marginLeft: '1%'
-            }}
-          >Max</CustomButton>
+            <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}>Mint with DAI</CustomButtonDai>
+            <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}>Mint with USDC</CustomButtonUsdc>
+            <CustomButtonFusdt style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFusdt}>Mint with FUSDT</CustomButtonFusdt>
+            <CustomButtonFrax style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFrax}>Mint with FRAX</CustomButtonFrax>
+            <CustomButtonMim style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalMim}>Mint with MIM</CustomButtonMim>
           </Stack>
-            <br />
-          </Modal>
-          <Modal
-            cancelText="Approve"
-            id="regular"
-            width="50vw"
-            height="30vh"
-            okText="Mint AgUSD!"
-            isVisible={this.state.showModal.fusdt}
-            onCancel={this.approveFusdt}
-            onCloseButtonPressed={this.setModalFusdt}
-            onOk={this.mintFusdt}
-            title={<h3 style={{
-              fontFamily: 'Montserrat'
-            }}>Mint AgUSD With fUSDT</h3>}
-            style={{
-              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+          {this.state.showModal.dai ? (<>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                  Input
+                </Type.SM>
+
+                <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder={((this.state.holdings.dai)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
+                  <ButtonMax width={"4vw"} onClick={this.setMaxDai}>
+                    MAX
+                  </ButtonMax>
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={dai}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">DAI</Type.LG>
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          <Link to="/withdraw"><Link to="/withdraw"><Image src={arrow} size="20px" my="15px"/></Link></Link>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                 Output
+                 </Type.SM>
+
+                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder="0.0" min="0" value={(this.state.input) || ""} width="40vw" onChange={this.handleChange} />
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={logo}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">AgUSD</Type.LG>
+                    {/*<Image src={dai} size="10px" />*/}
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          {this.state.account ?
+            (<><ButtonSwap style={{
+              width: '75vh',
             }}
-          >
-            <Stack direction="row" margin={2}>
-            <Input
-            alabel="Amount"
-            width="90%"
-            style={{
-              fontFamily: 'Montserrat'
+              onClick={this.approveDai}
+            >Approve DAI</ButtonSwap><ButtonSwap style={{
+              width: '75vh',
             }}
-            onChange={this.handleChange}
-            type="number"
-            placeholder={`fUSDT Balance: ${(this.state.holdings.fusdt)/10**6}`}
-            value={(this.state.input || "")}
-          />
-          <CustomButton
-            onClick={this.setMaxFusdt}
-            style={{
-              alignSelf: 'right',
-              width: '9%',
-              color: '#00000f',
-              backgroundColor: 'transparent',
-              marginLeft: '1%'
+              onClick={this.mintDai}
+            >Mint</ButtonSwap></>) :
+            (<ButtonSwap style={{
+              width: '75vh',
             }}
-          >Max</CustomButton>
-          </Stack>
-            <br />
-          </Modal>
-          <Modal
-            cancelText="Approve"
-            id="regular"
-            width="50vw"
-            height="30vh"
-            okText="Mint AgUSD!"
-            isVisible={this.state.showModal.frax}
-            onCancel={this.approveFrax}
-            onCloseButtonPressed={this.setModalFrax}
-            onOk={this.mintFrax}
-            title={<h3 style={{
-              fontFamily: 'Montserrat'
-            }}>Mint AgUSD With FRAX</h3>}
-            style={{
-              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+              onClick={this.connectWallet}
+            >Connect Wallet</ButtonSwap>)}</>) : <div/>}
+          {/**/}
+          {this.state.showModal.usdc ? (<>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                  Input
+                </Type.SM>
+
+                <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder={((this.state.holdings.usdc)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
+                  <ButtonMax width={"4vw"} onClick={this.setMaxUsdc}>
+                    MAX
+                  </ButtonMax>
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={usdc}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">USDC</Type.LG>
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          <Link to="/withdraw"><Image src={arrow} size="20px" my="15px"/></Link>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                 Output
+                 </Type.SM>
+
+                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder="0.0" min="0" value={(this.state.input) || ""} width="40vw" onChange={this.handleChange} />
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={logo}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">AgUSD</Type.LG>
+                    {/*<Image src={dai} size="10px" />*/}
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          {this.state.account ?
+            (<><ButtonSwap style={{
+              width: '75vh',
             }}
-          >
-          <Stack direction="row" margin={2}>
-          <Input
-            alabel="Amount"
-            width="90%"
-            style={{
-              fontFamily: 'Montserrat'
+              onClick={this.approveUsdc}
+            >Approve USDC</ButtonSwap><ButtonSwap style={{
+              width: '75vh',
             }}
-            onChange={this.handleChange}
-            type="number"
-            placeholder={`FRAX Balance: ${(this.state.holdings.frax)/10**18}`}
-            value={(this.state.input || "")}
-          />
-          <CustomButton
-            onClick={this.setMaxFrax}
-            style={{
-              alignSelf: 'right',
-              width: '9%',
-              color: '#00000f',
-              backgroundColor: 'transparent',
-              marginLeft: '1%'
+              onClick={this.mintUsdc}
+            >Mint</ButtonSwap></>) :
+            (<ButtonSwap style={{
+              width: '75vh',
             }}
-          >Max</CustomButton>
-          </Stack>
-            <br />
-          </Modal>
-          <Modal
-            cancelText="Approve"
-            id="regular"
-            width="50vw"
-            height="30vh"
-            okText="Mint AgUSD!"
-            isVisible={this.state.showModal.mim}
-            onCancel={this.approveMim}
-            onCloseButtonPressed={this.setModalMim}
-            onOk={this.mintMim}
-            title={<h3 style={{
-              fontFamily: 'Montserrat'
-            }}>Mint AgUSD With MIM</h3>}
-            style={{
-              backgroundImage: 'alinear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12))',
+              onClick={this.connectWallet}
+            >Connect Wallet</ButtonSwap>)}</>) : <div/>}
+          {/**/}
+          {this.state.showModal.fusdt ? (<>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                  Input
+                </Type.SM>
+
+                <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder={((this.state.holdings.fusdt)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
+                  <ButtonMax width={"4vw"} onClick={this.setMaxFusdt}>
+                    MAX
+                  </ButtonMax>
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={fusdt}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">fUSDT</Type.LG>
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          <Link to="/withdraw"><Image src={arrow} size="20px" my="15px"/></Link>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                 Output
+                 </Type.SM>
+
+                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder="0.0" min="0" value={(this.state.input) || ""} width="40vw" onChange={this.handleChange} />
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={logo}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">AgUSD</Type.LG>
+                    {/*<Image src={dai} size="10px" />*/}
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          {this.state.account ?
+            (<><ButtonSwap style={{
+              width: '75vh',
             }}
-          >
-          <Stack direction="row" margin={2}>
-          <Input
-            alabel="Amount"
-            width="90%"
-            style={{
-              fontFamily: 'Montserrat'
+              onClick={this.approveFusdt}
+            >Approve fUSDT</ButtonSwap><ButtonSwap style={{
+              width: '75vh',
             }}
-            onChange={this.handleChange}
-            type="number"
-            placeholder={`MIM Balance: ${(this.state.holdings.mim)/10**18}`}
-            value={(this.state.input || "")}
-          />
-          <CustomButton
-            onClick={this.setMaxMim}
-            style={{
-              alignSelf: 'right',
-              width: '9%',
-              color: '#00000f',
-              backgroundColor: 'transparent',
-              marginLeft: '1%'
+              onClick={this.mintFusdt}
+            >Mint</ButtonSwap></>) :
+            (<ButtonSwap style={{
+              width: '75vh',
             }}
-          >Max</CustomButton>
-          </Stack>
-            <br />
-          </Modal>
-          <Stack direction="row" spacing={2}>
-            <Card
-              onClick={this.setModalDai}
-              setIsSelected={function noRefCheck(){}}
-              style={{
-                backgroundImage: "linear-gradient(90deg, #FFD23F, #FFB236, #FF922D)",
-                color: "#ffffff",
-                width: "36vh"
-              }}
-            >
-              <img alt="token" src={dai} style={{
-                padding: '5vh',
-                width: '20vh'
-              }}/>
-              <CustomButtonDai variant="outlined" style={{
-                color: "#FFFFF0"
-              }}>Mint AgUSD with DAI</CustomButtonDai>
-            </Card>
-            {/**/}
-            <Card
-              onClick={this.setModalUsdc}
-              setIsSelected={function noRefCheck(){}}
-              style={{
-                backgroundImage: "linear-gradient(90deg, #44355B, #3B2E4D, #31263E)",
-                color: "#ffffff",
-                width: "36vh"
-              }}
-            >
-              <img alt="token" src={usdc} style={{
-                padding: '5vh',
-                width: '20vh'
-              }}/>
-              <CustomButtonUsdc variant="outlined" style={{
-                color: "#FFFFF0"
-              }}>Mint AgUSD with USDC</CustomButtonUsdc>
-            </Card>
-            {/**/}
-            <Card
-              onClick={this.setModalFusdt}
-              setIsSelected={function noRefCheck(){}}
-              style={{
-                backgroundImage: "linear-gradient(90deg, #40F99B, #3BD787, #39C67D)",
-                color: "#ffffff",
-                width: "36vh"
-              }}
-            >
-              <img alt="token" src={fusdt} style={{
-                padding: '5vh',
-                width: '20vh',
-                height: '20vh'
-              }}/>
-              <CustomButtonFusdt variant="outlined" style={{
-                color: "#FFFFF0"
-              }}>Mint AgUSD with FUSDT</CustomButtonFusdt>
-            </Card>
-            {/**/}
-            <Card
-              onClick={this.setModalFrax}
-              setIsSelected={function noRefCheck(){}}
-              style={{
-                backgroundImage: "linear-gradient(90deg, #2D1B24, #321821, #36151E)",
-                color: "#ffffff",
-                width: "36vh"
-              }}
-            >
-              <img alt="token" src={frax} style={{
-                padding: '5vh',
-                width: '20vh'
-              }}/>
-              <CustomButtonFrax variant="outlined" style={{
-                color: "#FFFFF0"
-              }}>Mint AgUSD with FRAX</CustomButtonFrax>
-            </Card>
-            {/**/}
-            <Card
-              onClick={this.setModalMim}
-              setIsSelected={function noRefCheck(){}}
-              style={{
-                backgroundImage: "linear-gradient(90deg, #F7B05B, #F4B565, #F1BA6E)",
-                color: "#ffffff",
-                width: "36vh"
-              }}
-            >
-              <img alt="token" src={mim} style={{
-                padding: '5vh',
-                width: '20vh'
-              }}/>
-              <CustomButtonMim variant="outlined" style={{
-                color: "#FFFFF0"
-              }}>Mint AgUSD with MIM</CustomButtonMim>
-            </Card>
-          </Stack>
+              onClick={this.connectWallet}
+            >Connect Wallet</ButtonSwap>)}</>) : <div/>}
+          {/**/}
+          {this.state.showModal.frax ? (<>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                  Input
+                </Type.SM>
+
+                <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder={((this.state.holdings.frax)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
+                  <ButtonMax width={"4vw"} onClick={this.setMaxFrax}>
+                    MAX
+                  </ButtonMax>
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={frax}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">FRAX</Type.LG>
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          <Link to="/withdraw"><Image src={arrow} size="20px" my="15px"/></Link>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                 Output
+                 </Type.SM>
+
+                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder="0.0" min="0" value={(this.state.input) || ""} width="40vw" onChange={this.handleChange} />
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={logo}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">AgUSD</Type.LG>
+                    {/*<Image src={dai} size="10px" />*/}
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          {this.state.account ?
+            (<><ButtonSwap style={{
+              width: '75vh',
+            }}
+              onClick={this.approveFrax}
+            >Approve FRAX</ButtonSwap><ButtonSwap style={{
+              width: '75vh',
+            }}
+              onClick={this.mintFrax}
+            >Mint</ButtonSwap></>) :
+            (<ButtonSwap style={{
+              width: '75vh',
+            }}
+              onClick={this.connectWallet}
+            >Connect Wallet</ButtonSwap>)}</>) : <div/>}
+          {/**/}
+          {this.state.showModal.mim ? (<>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                  Input
+                </Type.SM>
+
+                <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder={((this.state.holdings.mim)/10**18) || "0.0"} min="0" value={this.state.input || ""} width="40vw" onChange={this.handleChange} />
+                  <ButtonMax width={"4vw"} onClick={this.setMaxMim}>
+                    MAX
+                  </ButtonMax>
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={mim}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">MIM</Type.LG>
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          <Link to="/withdraw"><Image src={arrow} size="20px" my="15px"/></Link>
+          <Wrapper>
+            <Flex p="10px 0" justifyContent={"space-between"}>
+              <Box>
+                <Type.SM color={"secondary"}>
+                 Output
+                 </Type.SM>
+
+                 <Flex justifyContent="space-between" alignItems="center" mt="5px" marginRight="4vw">
+                  <InputAmount placeholder="0.0" min="0" value={(this.state.input) || ""} width="40vw" onChange={this.handleChange} />
+                  <TokenInfo onClick={function noRefCheck(){}}>
+                    <CurrencyLogo
+                      style={{ verticalAlign: "middle" }}
+                      currency={"DAI"}
+                      size={"25px"}
+                      src={logo}
+                    />
+                    <Type.LG color="text1" ml="7px" mr="9px">AgUSD</Type.LG>
+                    {/*<Image src={dai} size="10px" />*/}
+                  </TokenInfo>
+                </Flex>
+              </Box>
+            </Flex>
+          </Wrapper>
+          {this.state.account ? (<><ButtonSwap style={{
+            width: '75vh',
+          }}
+            onClick={this.approveMim}
+          >Approve MIM</ButtonSwap><ButtonSwap style={{
+            width: '75vh',
+          }}
+            onClick={this.mintMim}
+          >Mint</ButtonSwap></>) :
+            (<ButtonSwap style={{
+              width: '75vh',
+            }}
+              onClick={this.connectWallet}
+            >Connect Wallet</ButtonSwap>)}</>) : <div/>}
+          <br /><br />
         </header>
       </div>
     );
