@@ -101,7 +101,12 @@ const TokenInfo = styled(Flex)`
     }
 `
 
-const CustomButtonDai = styled(Button)(({  _theme }) => ({
+const BaseButton = styled(Button)(({  _theme }) => ({
+  marginLeft: '1vw',
+  height: '5vw'
+}));
+
+const CustomButtonDai = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -112,7 +117,7 @@ const CustomButtonDai = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
+const CustomButtonUsdc = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -123,7 +128,7 @@ const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonFusdt = styled(Button)(({  _theme }) => ({
+const CustomButtonFusdt = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -134,7 +139,7 @@ const CustomButtonFusdt = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonFrax = styled(Button)(({  _theme }) => ({
+const CustomButtonFrax = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -145,7 +150,7 @@ const CustomButtonFrax = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonMim = styled(Button)(({  _theme }) => ({
+const CustomButtonMim = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -727,7 +732,7 @@ class Mint extends Component {
             <h1>The Gluon Minter</h1>
             <h2>AgUSD Total Value Locked: ${this.state.tvl}</h2>
             */}
-          <h1 
+          <h1
            style={{height: '4vw'}}>The Gluon Minter</h1>
           {/*<CustomButton
             variant='contained'
@@ -762,7 +767,9 @@ class Mint extends Component {
           </CustomButton>*/}
           <Stack direction="row" margin={1}
            style={{opacity: '0.90'}} >
-            <h5 >MINT WITH</h5>
+            <h5 style={{
+              marginTop: '3vh',
+            }}>MINT WITH</h5>
             <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}><img src={dai} height="33" width="33"></img></CustomButtonDai>
             <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}><img src={usdc} height="33" width="33"></img></CustomButtonUsdc>
             <CustomButtonFusdt style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFusdt}><img src={fusdt} height="33" width="33"></img></CustomButtonFusdt>

@@ -100,8 +100,12 @@ const TokenInfo = styled(Flex)`
     }
 `
 
+const BaseButton = styled(Button)(({  _theme }) => ({
+  marginLeft: '1vw',
+  height: '5vw'
+}));
 
-const CustomButtonDai = styled(Button)(({  _theme }) => ({
+const CustomButtonDai = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -112,7 +116,7 @@ const CustomButtonDai = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
+const CustomButtonUsdc = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -123,7 +127,7 @@ const CustomButtonUsdc = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonFusdt = styled(Button)(({  _theme }) => ({
+const CustomButtonFusdt = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -134,7 +138,7 @@ const CustomButtonFusdt = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonFrax = styled(Button)(({  _theme }) => ({
+const CustomButtonFrax = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -145,7 +149,7 @@ const CustomButtonFrax = styled(Button)(({  _theme }) => ({
   }
 }));
 
-const CustomButtonMim = styled(Button)(({  _theme }) => ({
+const CustomButtonMim = styled(BaseButton)(({  _theme }) => ({
   borderColor: '#ffffff',
   borderRadius: '30px',
   textDecoration: 'none',
@@ -510,7 +514,9 @@ class Withdraw extends Component {
 
           {isNaN((parseInt(this.state.holding._hex,16)/10**18).toFixed(6)) ? <></> : <h2>{`AgUSD in wallet: $${(parseInt(this.state.holding._hex,16)/10**18).toFixed(6)}`}</h2>}
           <Stack direction="row" margin={1} style={{opacity: '0.90'}}>
-          <h5 >BURN</h5>
+            <h5 style={{
+              marginTop: '3vh',
+            }}>BURN FOR</h5>
             <CustomButtonDai style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalDai}><img src={dai} height="33" width="33"></img></CustomButtonDai>
             <CustomButtonUsdc style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalUsdc}><img src={usdc} height="33" width="33"></img></CustomButtonUsdc>
             <CustomButtonFusdt style={{ borderRadius: '30px' }} variant="outline" onClick={this.setModalFusdt}><img src={fusdt} height="33" width="33"></img></CustomButtonFusdt>
