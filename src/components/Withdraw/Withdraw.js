@@ -6,6 +6,7 @@ import { Card, Modal, Input } from 'web3uikit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
+import { Rave } from '@rave-names/rave';
 
 import Toastify from 'toastify-js'
 import "../../toastify.css"
@@ -34,6 +35,7 @@ import { Flex, Box, Image } from 'rebass/styled-components';
 
 import { ButtonSyncDeactivated, ButtonSyncActive } from '../Button';
 
+const rave = new Rave();
 
 const ButtonSwap = styled(ButtonSyncActive)`
     background: linear-gradient(135deg, rgb(240, 171, 124), rgb(192, 88, 17), rgb(136, 61, 12));
@@ -299,6 +301,15 @@ class Withdraw extends Component {
   }
 
   async connectWallet() {
+    Toastify({
+      text: `Connecting...`,
+      duration: 2000,
+      close: true,
+      gravity: 'top',
+      style: {
+        background: "linear-gradient(135deg, rgb(136, 61, 12), rgb(192, 88, 17), rgb(240, 171, 124))",
+      },
+    }).showToast();
     window.ethereum.request({
       method: "wallet_addEthereumChain",
       params: [{
@@ -321,8 +332,23 @@ class Withdraw extends Component {
 
     let agUsd = new Contract(constants.agusd,agabi,signer);
 
+    let raveData = {
+      hasName: false,
+      name: '',
+    }
+
+    await Promise.all([
+      rave.owns(account),
+      rave.reverseToName(account)
+    ]).then((values) => {
+      raveData.hasName = values[0];
+      if(values[0]) {
+        raveData.name = values[1];
+      }
+    });
+
     Toastify({
-      text: `Connecting wallet: ${truncateAddress(account)}`,
+      text: `Connected wallet: ${raveData.hasName ? raveData.name : truncateAddress(account)}`,
       duration: 7000,
       close: true,
       gravity: 'top',
